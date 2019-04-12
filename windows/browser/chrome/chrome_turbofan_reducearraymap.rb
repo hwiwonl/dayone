@@ -22,7 +22,7 @@ class MetasploitModule < Msf::Exploit::Remote
             },
             'License'        => MSF_LICENSE,
             'Author'         => [
-                'Istvan Kurucsai (EXODUS Intelligence)',                                              # Original RE research and exploitation
+                'Istvan Kurucsai (EXODUS Intelligence)',          # Original RE research and exploitation
                 'Hwiwon Lee <develacker[at]gmail.com>'            # Metasploit module
               ],
             'Platform'       => 'win',
