@@ -15,7 +15,7 @@ class MetasploitModule < Msf::Exploit::Remote
         super(
           update_info(
             info,
-            'Name'           => "CVE-2106-3207",
+            'Name'           => "CVE-2016-3207",
             'Description'    => %q{
               This module exploits Use-After-Free vulnerability (CVE-2016-3207)
               present in the JScript engine of Internet Explorer.
