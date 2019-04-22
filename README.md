@@ -8,3 +8,7 @@
 
 ## vulncode-db 
 Useful vulnerable code db site [demo](https://www.vulncode-db.com/) and [open source](https://github.com/google/vulncode-db)
+
+## Environment Setup
+### Chromium
+[Downloading old builds of Chrome / Chromium](https://www.chromium.org/getting-involved/download-chromium)
