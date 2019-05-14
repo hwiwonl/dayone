@@ -34,7 +34,7 @@ class MetasploitModule < Msf::Exploit::Remote
               ],
             'References'     =>
               [
-                [ 'CVE', '2019-????' ],   # No CVE yet
+                [ 'CVE', '2019-5825' ],   # https://chromereleases.googleblog.com/2019/04/stable-channel-update-for-desktop_30.html
                 [ 'CBT', '941743' ]       # Chromium Bug Tracker
               ],
             'Arch'           => ARCH_X64,
