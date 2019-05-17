@@ -3,9 +3,9 @@
 * Credit : Yunus YILDIRIM (Th3GundY)
 
 ## Description
-FTPShell Client 5.24 Remote Buffer Overflow
-Tested on Windows 7 enterprise 32bit
-Target EIP address should be revised according to each platforms..
+* FTPShell Client 5.24 Remote Buffer Overflow
+* Tested on Windows 7 enterprise 32bit
+* Target EIP address should be revised according to each platforms..
 
 ## PoC
 ```python
