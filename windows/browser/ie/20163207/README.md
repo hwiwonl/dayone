@@ -151,4 +151,4 @@ for (var i = 0; i < n; i++)
 ```
 
 ## Reference
-(https://theori.io/research/jscript9_typed_array)
+[Theori Writeup](https://theori.io/research/jscript9_typed_array)

