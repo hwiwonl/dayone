@@ -3,7 +3,11 @@
 * Credit : Google Project Zero
 
 ## Description
-Type Confusion Vulnerability in mshtml.dll
+* Type Confusion Vulnerability in mshtml.dll
+* Full exploit below uses CVE-2017-0059, CVE-2017-0037
+* CVE-2017-0059 does not work on previous version IE 11.0.9600.17420(11.0.14)
+* IE Update is available on www.catalog.update.microsoft.com/search.aspx?q=kb3205394 (update for IE 11.0.9600.18537).
+* The bugs are tested only on IE 11.0.9600.18537(11.0.38) on Windows 7
 
 ## PoC
 ```html
