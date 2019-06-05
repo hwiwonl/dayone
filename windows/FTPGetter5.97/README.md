@@ -161,6 +161,8 @@ except Exception as e:
 ```
 
 ## Reference
-*[ExploitDB 46543](https://www.exploit-db.com/exploits/46543)
-*[CVE](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-9760)
-*[Github](https://github.com/w4fz5uck5/FTPGetter)
+[ExploitDB 46543](https://www.exploit-db.com/exploits/46543)
+
+[CVE](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-9760)
+
+[Github](https://github.com/w4fz5uck5/FTPGetter)
