@@ -6,12 +6,6 @@
 * FTPGetter 5.97 Memory Corruption
 * Tested on Windows 7 64bit
 
-## PoC
-```python
-# CVE-2016-????
-* Date : Nov 2016
-* Credit : Yunus YILDIRIM (Th3GundY)
-
 ## Description
 * FTPShell Client 5.24 Remote Buffer Overflow
 * Tested on Windows 7 enterprise 32bit
@@ -174,4 +168,3 @@ except Exception as e:
 ## Reference
 [ExploitDB 46543](https://www.exploit-db.com/exploits/46543)
 [CVE](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-9760)
-```
