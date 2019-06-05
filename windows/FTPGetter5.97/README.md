@@ -6,11 +6,6 @@
 * FTPGetter 5.97 Memory Corruption
 * Tested on Windows 7 64bit
 
-## Description
-* FTPShell Client 5.24 Remote Buffer Overflow
-* Tested on Windows 7 enterprise 32bit
-* Target EIP address should be revised according to each platforms..
-
 ## PoC
 ```python
 import socket
