@@ -1,10 +1,3 @@
-# Exploit Author:      https://github.com/w4fz5uck5
-# Exploit finished:    08/03/2019
-# Tested on:           Windows 7 x64 (Should work on new Windows versions too!)
-# Vulnerable software: FTPGetter Standard v.5.97.0.177
-# POC video:           https://vimeo.com/323501109
-# CVE:                 CVE-2019-9760
-
 import socket
 import struct
 import time
@@ -16,7 +9,7 @@ metadata = {
     'description': '''
         The FTPGetter 5.29 is vulnerable to remote code execution
     ''',
-    'authors':['??', 'Hyeonhak Kim'],
+    'authors':['w4fz5uck5'],
     'date': '2019-03-13',
     'references':[
         {'type':'cve', 'ref':'2019-9760'},
