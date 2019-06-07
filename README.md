@@ -10,8 +10,8 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2017-????](windows/browser/chromium/746946/README.md) | Chrome | Browser | Windows | 59.0.3071.109 (64bit) | _Hwiwon Lee_
 [CVE-2016-3207](windows/browser/ie/20163207/README.md) | IE | Browser | Windows | 11.0.9600.17420(32bit) | _Hyeonhak Kim_
 [CVE-2017-0037](windows/browser/ie/20170037/README.md) | IE | Browser | Windows | 11.0.9600.18537(32bit) | _Hyeonhak Kim_
-[CVE-2019-9760](windows/FTP/FTPGetter5.97/README.md) | IE | FTP | Windows | 5.97.0.177(64bit) | _Hyeonhak Kim_
-[CVE-2016-????](windows/FTP/FTPShell5.24/README.md) | IE | FTP | Windows | 5.24(32bit) | _Hyeonhak Kim_
+[CVE-2019-9760](windows/FTP/FTPGetter5.97/README.md) | FTPGetter | FTP Client | Windows | 5.97.0.177(64bit) | _Hyeonhak Kim_
+[CVE-2016-????](windows/FTP/FTPShell5.24/README.md) | FTPShell | FTP Client | Windows | 5.24(32bit) | _Hyeonhak Kim_
 
 ## Metasploit
 [Official Repo](https://github.com/rapid7/metasploit-framework)  
