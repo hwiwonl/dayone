@@ -12,6 +12,8 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2017-0037](windows/browser/ie/20170037/README.md) | IE | Browser | Windows | 11.0.9600.18537(32bit) | _Hyeonhak Kim_
 [CVE-2019-9760](windows/FTP/FTPGetter5.97/README.md) | FTPGetter | FTP Client | Windows | 5.97.0.177(64bit) | _Hyeonhak Kim_
 [CVE-2016-????](windows/FTP/FTPShell5.24/README.md) | FTPShell | FTP Client | Windows | 5.24(32bit) | _Hyeonhak Kim_
+[CVE-2019-????](./chromium/46654/README.md) | Chrome | Browser | Linux | 74.0.3702.0 (64bit) | _Youngjoon Kim_
+[CVE-2019-????](./chromium/46748/README.md) | Chrome | Browser | Linux | 74.0.3725.0 (64bit) | _Youngjoon Kim_
 
 ## Metasploit
 [Official Repo](https://github.com/rapid7/metasploit-framework)  
