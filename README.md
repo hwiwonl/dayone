@@ -15,6 +15,13 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2019-????](linux/browser/chromium/46654/README.md) | Chrome | Browser | Linux | 74.0.3702.0 (64bit) | _Youngjoon Kim_
 [CVE-2019-????](linux/browser/chromium/46748/README.md) | Chrome | Browser | Linux | 74.0.3725.0 (64bit) | _Youngjoon Kim_
 [CVE-2019-0752](windows/browser/ie/20190752/README.md) | IE | Browser | Windows | 11.379.17763.0 (64bit) | _Youngjoon Kim_
+[CVE-2017-5375&CVE-2016-1960](windows/browser/firefox/Firefox%2044.0.2%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-1960)/README.md) | firefox | Browser | Windows | 44.0.2 | _Sungha Park_
+[CVE-2017-5375&CVE-2016-2819](windows/browser/firefox/Firefox%2046.0.1%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-2819)/README.md) | firefox | Browser | Windows | 46.0.1 | _Sungha Park_
+[CVE-2017-5375&CVE-2016-9079](windows/browser/firefox/Firefox%2050.0.1%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-9079)/README.md) | firefox | Browser | Windows | 50.0.1 | _Sungha Park_
+[CVE-2017-5415](windows/browser/firefox/Mozilla%20Firefox%20-%20Address%20Bar%20Spoofing/README.md) | firefox | Browser | Windows | 50.0.1 | _Sungha Park_
+[CVE-2019-0541](windows/browser/ie/Microsoft%20Windows%20MSHTML%20Engine%20-%20Edit%20Remote%20Code%20Execution(CVE-2019-0541)/README.md) | ie | Browser | Windows | 8.0.6001.18702| _Sungha Park_
+[CVE-2019-9766](windows/windows/player/free_mp3_cd_ripper/README.md) | Free MP3 CD Ripper | player | Windows | 2.6 | _Sungha Park_
+[CVE-2019-???(EDB-46279)](windows/player/HTML5%20Video%20Player/README.md) | HTML5 Video Player | player | Windows | 1.2.5 | _Sungha Park_
 
 ## Metasploit
 [Official Repo](https://github.com/rapid7/metasploit-framework)  
