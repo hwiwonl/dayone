@@ -22,6 +22,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2019-0541](windows/browser/ie/Microsoft%20Windows%20MSHTML%20Engine%20-%20Edit%20Remote%20Code%20Execution(CVE-2019-0541)/README.md) | ie | Browser | Windows | 8.0.6001.18702| _Sungha Park_
 [CVE-2019-9766](windows/windows/player/free_mp3_cd_ripper/README.md) | Free MP3 CD Ripper | player | Windows | 2.6 | _Sungha Park_
 [CVE-2019-???(EDB-46279)](windows/player/HTML5%20Video%20Player/README.md) | HTML5 Video Player | player | Windows | 1.2.5 | _Sungha Park_
+[CVE-2018-4314](macos/browser/safari/cve-2018-4314/README.md) | Safari | Browser | macOS | 11.1.2 (64bit) | _Hwiwon Lee_
 
 ## Metasploit
 [Official Repo](https://github.com/rapid7/metasploit-framework)  
