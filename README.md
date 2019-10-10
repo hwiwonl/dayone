@@ -24,7 +24,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2019-???(EDB-46279)](windows/player/HTML5%20Video%20Player/README.md) | HTML5 Video Player | player | Windows | 1.2.5 | _Sungha Park_
 [CVE-2018-4314](macos/browser/safari/cve-2018-4314/README.md) | Safari | Browser | macOS | 11.1.2 (64bit) | _Hwiwon Lee_
 [CVE-2017-15399](windows/browser/chromium/201715399/README.md) | Chrome | Browser | Windows | 62.0.3202.89  | _Youngjoon Kim_
-[CVE-2018-4878](windows/flash/20184878/README.md) | Adobe Flash Player | Flash Player | Windows | 28 | _Younggi Park_
+[CVE-2018-4878](windows/flash/20184878/README.md) | Adobe Flash Player | Flash Player | Windows | 28.0.0.137 | _Younggi Park_
 ## Metasploit
 [Official Repo](https://github.com/rapid7/metasploit-framework)  
 [How to write a browser exploit using BrowserExploitServer](https://github.com/rapid7/metasploit-framework/wiki/How-to-write-a-browser-exploit-using-BrowserExploitServer)  
