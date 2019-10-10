@@ -23,6 +23,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2019-9766](windows/windows/player/free_mp3_cd_ripper/README.md) | Free MP3 CD Ripper | player | Windows | 2.6 | _Sungha Park_
 [CVE-2019-???(EDB-46279)](windows/player/HTML5%20Video%20Player/README.md) | HTML5 Video Player | player | Windows | 1.2.5 | _Sungha Park_
 [CVE-2018-4314](macos/browser/safari/cve-2018-4314/README.md) | Safari | Browser | macOS | 11.1.2 (64bit) | _Hwiwon Lee_
+[CVE-2017-15399](windows/browser/chromium/201715399/README.md) | Chrome | Browser | Windows | 62.0.3202.89  | _Youngjoon Kim_
 
 ## Metasploit
 [Official Repo](https://github.com/rapid7/metasploit-framework)  
