@@ -26,6 +26,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2017-15399](windows/browser/chromium/201715399/README.md) | Chrome | Browser | Windows | 62.0.3202.89  | _Youngjoon Kim_
 [CVE-2018-4878](windows/flash/20184878/README.md) | Adobe Flash Player | Flash Player | Windows | 28.0.0.137 | _Younggi Park_
 [CVE-2018-15877](linux/wordpress/README.md) | wordpress | Application | linux | 20161228 and prior | _Sungha Park_
+[CVE-2015-5932](macos/kernel/cve-2015-5932/README.md) | macOS | Kernel | macOS | < 10.11 | _Hwiwon Lee_
 
 ## Metasploit
 [Official Repo](https://github.com/rapid7/metasploit-framework)  
