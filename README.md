@@ -45,7 +45,7 @@ Useful vulnerable code db site [demo](https://www.vulncode-db.com/) and [open so
 [Downloading old version update of IE](https://www.catalog.update.microsoft.com)
 
 ### Acrobat Reader
-[Downloading old version update of IE](ftp://ftp.adobe.com/pub/adobe/reader/win)
+Downloading old version of Adobe Reader : ftp://ftp.adobe.com/pub/adobe/reader/win
 
 ## How to use
 ### Attacker
