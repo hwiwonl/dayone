@@ -13,6 +13,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2019-9760](windows/FTP/FTPGetter5.97/README.md) | FTPGetter | FTP Client | Windows | 5.97.0.177(64bit) | _Hyeonhak Kim_
 [CVE-2016-????](windows/FTP/FTPShell5.24/README.md) | FTPShell | FTP Client | Windows | 5.24(32bit) | _Hyeonhak Kim_
 [CVE-2019-0803](windows/kernel/ms19_0803_win32k_privesc/README.md) | win7 x64 SP1 | Kernel | Windows | 6.1.7601 | _Hyeonhak Kim_
+[CVE-2018-8639](windows/kernel/ms18_8639_win32k_privesc/README.md) | win7 x32 SP1 | Kernel | Windows | 6.1.7601 | _Hyeonhak Kim_
 [CVE-2019-????](linux/browser/chromium/46654/README.md) | Chrome | Browser | Linux | 74.0.3702.0 (64bit) | _Youngjoon Kim_
 [CVE-2019-????](linux/browser/chromium/46748/README.md) | Chrome | Browser | Linux | 74.0.3725.0 (64bit) | _Youngjoon Kim_
 [CVE-2019-0752](windows/browser/ie/20190752/README.md) | IE | Browser | Windows | 11.379.17763.0 (64bit) | _Youngjoon Kim_
