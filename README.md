@@ -12,6 +12,8 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2017-0037](windows/browser/ie/20170037/README.md) | IE | Browser | Windows | 11.0.9600.18537(32bit) | _Hyeonhak Kim_
 [CVE-2019-9760](windows/FTP/FTPGetter5.97/README.md) | FTPGetter | FTP Client | Windows | 5.97.0.177(64bit) | _Hyeonhak Kim_
 [CVE-2016-????](windows/FTP/FTPShell5.24/README.md) | FTPShell | FTP Client | Windows | 5.24(32bit) | _Hyeonhak Kim_
+[CVE-2019-0803](windows/kernel/ms19_0803_win32k_privesc/README.md) | win7 x64 SP1 | Kernel | Windows | 6.1.7601 | _Hyeonhak Kim_
+[CVE-2018-8639](windows/kernel/ms18_8639_win32k_privesc/README.md) | win7 x32 SP1 | Kernel | Windows | 6.1.7601 | _Hyeonhak Kim_
 [CVE-2019-????](linux/browser/chromium/46654/README.md) | Chrome | Browser | Linux | 74.0.3702.0 (64bit) | _Youngjoon Kim_
 [CVE-2019-????](linux/browser/chromium/46748/README.md) | Chrome | Browser | Linux | 74.0.3725.0 (64bit) | _Youngjoon Kim_
 [CVE-2019-0752](windows/browser/ie/20190752/README.md) | IE | Browser | Windows | 11.379.17763.0 (64bit) | _Youngjoon Kim_
@@ -24,6 +26,10 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2019-???(EDB-46279)](windows/player/HTML5%20Video%20Player/README.md) | HTML5 Video Player | player | Windows | 1.2.5 | _Sungha Park_
 [CVE-2018-4314](macos/browser/safari/cve-2018-4314/README.md) | Safari | Browser | macOS | 11.1.2 (64bit) | _Hwiwon Lee_
 [CVE-2017-15399](windows/browser/chromium/201715399/README.md) | Chrome | Browser | Windows | 62.0.3202.89  | _Youngjoon Kim_
+[CVE-2018-4878](windows/flash/20184878/README.md) | Adobe Flash Player | Flash Player | Windows | 28.0.0.137 | _Younggi Park_
+[CVE-2018-15877](linux/wordpress/README.md) | wordpress | Application | linux | 20161228 and prior | _Sungha Park_
+[CVE-2015-5932](macos/kernel/cve-2015-5932/README.md) | macOS | Kernel | macOS | < 10.11 | _Hwiwon Lee_
+[CVE-2018-4990](windows/PDF_Reader/CVE-2018-4990/README.md) | Adobe Acrobat Reader DC | PDF Reader | Windows | 17.00920044, 18.01120038 | _Younggi Park_
 
 ## Metasploit
 [Official Repo](https://github.com/rapid7/metasploit-framework)  
@@ -38,6 +44,9 @@ Useful vulnerable code db site [demo](https://www.vulncode-db.com/) and [open so
 [Downloading old builds of Chrome / Chromium](https://www.chromium.org/getting-involved/download-chromium)
 ### Internet Explorer
 [Downloading old version update of IE](https://www.catalog.update.microsoft.com)
+
+### Acrobat Reader
+Downloading old version of Adobe Reader : ftp://ftp.adobe.com/pub/adobe/reader/win
 
 ## How to use
 ### Attacker
