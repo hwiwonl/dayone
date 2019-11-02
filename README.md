@@ -31,6 +31,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2015-5932](macos/kernel/cve-2015-5932/README.md) | macOS | Kernel | macOS | < 10.11 | _Hwiwon Lee_
 [CVE-2018-4990](windows/PDF_Reader/CVE-2018-4990/README.md) | Adobe Acrobat Reader DC | PDF Reader | Windows | 17.00920044, 18.01120038 | _Younggi Park_
 [CVE-2017-5070](windows/browser/chromium/20175070/README.md) | Chrome | Browser | Windows | 58.0.3029.110  | _Youngjoon Kim_
+[CVE-2018-8174](windows/browser/ie/20188174/README.md) | IE | Browser | Windows | 8~11(IE ver)  | _Sungha_Park_
 
 ## Metasploit
 [Official Repo](https://github.com/rapid7/metasploit-framework)  
