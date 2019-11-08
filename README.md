@@ -33,6 +33,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2018-8174](windows/browser/ie/20188174/README.md) | IE | Browser | Windows | 8~11(IE ver)  | _Sungha_Park_
 [CVE-2018-4878](windows/flash/20184878/README.md) | Adobe Flash Player | Flash Player | Windows | 28.0.0.137 | _Younggi Park_
 [CVE-2018-4990](windows/PDF_Reader/CVE-2018-4990/README.md) | Adobe Acrobat Reader DC | PDF Reader | Windows | 17.00920044, 18.01120038 | _Younggi Park_
+[CVE-2018-8120](windows/kernel/CVE-2018-8120/README.md) | win7 x86 SP1 | Kernel | Windows | 6.1.7601 | _Younggi Park_
 
 
 ## Metasploit
