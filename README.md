@@ -23,6 +23,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2019-0752](windows/browser/ie/20190752/README.md) | IE | Browser | Windows | 11.379.17763.0 (64bit) | _Youngjoon Kim_
 [CVE-2017-15399](windows/browser/chromium/201715399/README.md) | Chrome | Browser | Windows | 62.0.3202.89  | _Youngjoon Kim_
 [CVE-2017-5070](windows/browser/chromium/20175070/README.md) | Chrome | Browser | Windows | 58.0.3029.110  | _Youngjoon Kim_
+[CVE-2018-17463](windows/browser/chromium/201817463/README.md) | Chrome | Browser | Windows | < 70.0.3538.64  | _Youngjoon Kim_
 [CVE-2017-5375&CVE-2016-1960](windows/browser/firefox/Firefox%2044.0.2%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-1960)/README.md) | firefox | Browser | Windows | 44.0.2 | _Sungha Park_
 [CVE-2017-5375&CVE-2016-2819](windows/browser/firefox/Firefox%2046.0.1%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-2819)/README.md) | firefox | Browser | Windows | 46.0.1 | _Sungha Park_
 [CVE-2017-5375&CVE-2016-9079](windows/browser/firefox/Firefox%2050.0.1%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-9079)/README.md) | firefox | Browser | Windows | 50.0.1 | _Sungha Park_
