@@ -1,0 +1,8 @@
+-r requirements.txt
+pylint
+yapf>=0.28
+pyyaml
+pytest==5.2.0
+pytest-mock==1.11.0
+pytest-cov==2.7.1
+pytest-flask-sqlalchemy==1.0.2
