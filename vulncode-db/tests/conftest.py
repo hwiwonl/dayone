@@ -38,8 +38,10 @@ TEST_CONFIG = {
         'echo': True,  # log queries
         # 'echo_pool': True,  # log connections
     },
-    'APPLICATION_ADMINS': ['admin@vulncode-db.com'],
-    'IS_LOCAL': False,
+    # 'APPLICATION_ADMINS': ['admin@vulncode-db.com'],
+    # 'IS_LOCAL': False,
+    'APPLICATION_ADMINS': ['cistgroku@gmail.com'],
+    'IS_LOCAL': True,
 }
 
 

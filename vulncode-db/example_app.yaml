@@ -25,9 +25,11 @@ handlers:
 env_variables:
   # Replace all settings according to your local / qa / prod environment.
 
+  # client ID : 145955441034-rilvnhkdrs2s1ifsbhhp90f6fi2noj6g.apps.googleusercontent.com
+  # client secret : pRo6CMr5oAgYGOHOg3UvnnCK
   # OAuth settings.
-  OAUTH_CONSUMER_KEY: ''
-  OAUTH_CONSUMER_SECRET: ''
+  OAUTH_CONSUMER_KEY: '145955441034-rilvnhkdrs2s1ifsbhhp90f6fi2noj6g.apps.googleusercontent.com'
+  OAUTH_CONSUMER_SECRET: 'pRo6CMr5oAgYGOHOg3UvnnCK'
 
   # Site settings.
   CSRF_SESSION_KEY: 'secret'
@@ -63,7 +65,8 @@ env_variables:
   # VCS_PROXY_PROD_URL: ''
 
   # Admin emails separated by ','. This is required to make permanent changes to the database.
-  APPLICATION_ADMINS: 'user@gmail.com'
+  # APPLICATION_ADMINS: 'user@gmail.com'
+  APPLICATION_ADMINS: 'cistgroku@gmail.com'
 
   # Shows a warning as changes can only be stored permanently by admins.
   # DEMO_MODE: False

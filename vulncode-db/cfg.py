@@ -115,6 +115,9 @@ SECRET_KEY = os.getenv("COOKIE_SECRET_KEY", "")
 
 PATCH_REGEX = r".*(github\.com|\.git|\.patch|\/hg\.|\/\+\/)"
 
+# https://idlecomputer.tistory.com/310
+# client ID : 145955441034-rilvnhkdrs2s1ifsbhhp90f6fi2noj6g.apps.googleusercontent.com
+# client secret : pRo6CMr5oAgYGOHOg3UvnnCK
 GOOGLE_OAUTH = {
     "consumer_key": os.getenv("OAUTH_CONSUMER_KEY", ""),
     "consumer_secret": os.getenv("OAUTH_CONSUMER_SECRET", "")
