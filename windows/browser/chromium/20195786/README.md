@@ -12,14 +12,14 @@ This exploit uses site-isolation to brute-force the vulnerability. iframe.html i
 
 
 
-# Root Cause Analysis
+## Root Cause Analysis
 
 자세한 정보는 [1], [8]을 참고하였다.
 
 The FileReader object lets web applications asynchronously read the contents of files (or raw data buffers) stored on the user's computer, using File or Blob objects to specify the file or data to read.
 
 
-## Patch Analysis
+### Patch Analysis
 
 Google은 Chrome에 대한 소스를 제공하고 있으며, 문제가 발생하는 소스코드는 `file_reader_loader.cc`이다. Google이 제공하는 취약한 버전과 패치된 버전의 URL은 다음과 같다.
 
@@ -171,9 +171,9 @@ scoped_refptr<ArrayBuffer> ArrayBuffer::SliceImpl(unsigned begin,
 
 
 
-## Root Cause Analysis
+### Root Cause Analysis
 
-### Creating Dangling Pointer
+#### Creating Dangling Pointer
 
 `FileReaderLoader::ArrayBufferResult`가 실행하는 `DOMArrayBuffer::Create`는 다음과 같다.
 
@@ -282,7 +282,8 @@ SerializedScriptValue::TransferArrayBufferContents(
 ---
 
 
-# Reference
+## References
+
 [1] https://securingtomorrow.mcafee.com/blogs/other-blogs/mcafee-labs/analysis-of-a-chrome-zero-day-cve-2019-5786/
 
 [2] https://www.chromium.org/developers/smart-pointer-guidelines
@@ -300,5 +301,9 @@ SerializedScriptValue::TransferArrayBufferContents(
 
 [8] https://blog.exodusintel.com/2019/03/20/cve-2019-5786-analysis-and-exploitation/
 
-
 [9] https://github.com/chromium/chromium/blob/17cc212565230c962c1f5d036bab27fe800909f9/third_party/blink/renderer/bindings/core/v8/serialization/serialized_script_value.cc#L683
+
+[10] why-are-transfered-buffers-neutered-in-javascript : https://stackoverflow.com/questions/38169672/why-are-transfered-buffers-neutered-in-javascript
+
+
+
