@@ -86,11 +86,11 @@ DOMArrayBuffer* FileReaderLoader::ArrayBufferResult() {
 패치되지 않은 경우와의 주요 차이점은 3번 항목, 즉, **`finished_loading`이 설정되지 않은 경우에** 해당하는데, 두 경우를 비교하면 구체적인 root cause를 분석할 수 있다.
 
 
-- Old
+##### Old
 ```C++
 DOMArrayBuffer* result = DOMArrayBuffer::Create(raw_data_->ToArrayBuffer());
 ```
-- New
+##### New
 ```C++
 return DOMArrayBuffer::Create(ArrayBuffer::Create(raw_data_->Data(), raw_data_->ByteLength()));
 ```
@@ -103,7 +103,7 @@ return DOMArrayBuffer::Create(ArrayBuffer::Create(raw_data_->Data(), raw_data_->
 먼저 패치된 버전을 살펴보면 `ArrayBuffer::Create` 함수는 2개의 인자를 사용하는데 (1) `Data` (2) `ByteLength`로 구성된다.
 `ArrayBuffer::Create(const void*, size_t)` 함수의 원형은 다음과 같다.
 
-* `ArrayBuffer::Create(const void*, size_t)`
+##### `ArrayBuffer::Create(const void*, size_t)`
 ```C++
 scoped_refptr<ArrayBuffer> ArrayBuffer::Create(const void* source,
                                                size_t byte_length) {
@@ -129,7 +129,7 @@ scoped_refptr<ArrayBuffer> ArrayBuffer::Create(const void* source,
 
 반대로 패치 전의 코드에서 사용하는 `ArrayBufferBuilder::ToArrayBuffer()` 함수를 살펴보면 다음과 같다. [3]
 
-* `ArrayBufferBuilder::ToArrayBuffer()`
+##### `ArrayBufferBuilder::ToArrayBuffer()`
 
 ```C++
 scoped_refptr<ArrayBuffer> ArrayBufferBuilder::ToArrayBuffer() {
@@ -144,7 +144,7 @@ scoped_refptr<ArrayBuffer> ArrayBufferBuilder::ToArrayBuffer() {
 
 그 반대의 경우, `ArrayBuffer::Slice(int begin, int end)` 함수를 실행시키게 된다. [5][6]
 
-* `ArrayBuffer::Slice(int begin, int end)`
+##### `ArrayBuffer::Slice(int begin, int end)`
 ```C++
 scoped_refptr<ArrayBuffer> ArrayBuffer::Slice(int begin, int end) const {
   return SliceImpl(ClampIndex(begin), ClampIndex(end));
@@ -173,9 +173,11 @@ scoped_refptr<ArrayBuffer> ArrayBuffer::SliceImpl(unsigned begin,
 
 ## Root Cause Analysis
 
+### Creating Dangling Pointer
+
 `FileReaderLoader::ArrayBufferResult`가 실행하는 `DOMArrayBuffer::Create`는 다음과 같다.
 
-* `DOMArrayBuffer::Create`
+##### `DOMArrayBuffer::Create`
 ```C++
   static DOMArrayBuffer* Create(scoped_refptr<WTF::ArrayBuffer> buffer) {
     return MakeGarbageCollected<DOMArrayBuffer>(std::move(buffer));
@@ -212,6 +214,68 @@ C++의 `std::move`는 오브젝트를 이동시키기 위한 함수로서, 일�
 
 
 
+### Triggering Free
+
+
+
+##### SerializedScriptValue::ArrayBufferContentsArray [8]
+
+```C++
+SerializedScriptValue::ArrayBufferContentsArray
+SerializedScriptValue::TransferArrayBufferContents(
+    v8::Isolate* isolate,
+    const ArrayBufferArray& array_buffers,
+    ExceptionState& exception_state) {
+  ArrayBufferContentsArray contents;
+
+  if (!array_buffers.size())
+    return ArrayBufferContentsArray();
+
+  for (auto* it = array_buffers.begin(); it != array_buffers.end(); ++it) {
+    DOMArrayBufferBase* array_buffer = *it;
+    if (array_buffer->IsNeutered()) {
+      wtf_size_t index =
+          static_cast<wtf_size_t>(std::distance(array_buffers.begin(), it));
+      exception_state.ThrowDOMException(DOMExceptionCode::kDataCloneError,
+                                        "ArrayBuffer at index " +
+                                            String::Number(index) +
+                                            " is already neutered.");
+      return ArrayBufferContentsArray();
+    }
+  }
+
+  contents.Grow(array_buffers.size());
+  HeapHashSet<Member<DOMArrayBufferBase>> visited;
+  for (auto* it = array_buffers.begin(); it != array_buffers.end(); ++it) {
+    DOMArrayBufferBase* array_buffer_base = *it;
+    if (visited.Contains(array_buffer_base))
+      continue;
+    visited.insert(array_buffer_base);
+
+    wtf_size_t index =
+        static_cast<wtf_size_t>(std::distance(array_buffers.begin(), it));
+    if (array_buffer_base->IsShared()) {
+      exception_state.ThrowDOMException(DOMExceptionCode::kDataCloneError,
+                                        "SharedArrayBuffer at index " +
+                                            String::Number(index) +
+                                            " is not transferable.");
+      return ArrayBufferContentsArray();
+    } else {
+      DOMArrayBuffer* array_buffer =
+          static_cast<DOMArrayBuffer*>(array_buffer_base);
+
+      if (!array_buffer->Transfer(isolate, contents.at(index))) {
+        exception_state.ThrowDOMException(DOMExceptionCode::kDataCloneError,
+                                          "ArrayBuffer at index " +
+                                              String::Number(index) +
+                                              " could not be transferred.");
+        return ArrayBufferContentsArray();
+      }
+    }
+  }
+  return contents;
+}
+```
 
 
 
@@ -236,3 +300,5 @@ C++의 `std::move`는 오브젝트를 이동시키기 위한 함수로서, 일�
 
 [8] https://blog.exodusintel.com/2019/03/20/cve-2019-5786-analysis-and-exploitation/
 
+
+[9] https://github.com/chromium/chromium/blob/17cc212565230c962c1f5d036bab27fe800909f9/third_party/blink/renderer/bindings/core/v8/serialization/serialized_script_value.cc#L683
