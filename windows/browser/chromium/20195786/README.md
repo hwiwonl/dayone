@@ -5,8 +5,8 @@ CVE-2019-5786 Chrome 72.0.3626.119 stable FileReader UaF exploit for Windows 7 x
 This exploit uses site-isolation to brute-force the vulnerability. iframe.html is the wrapper script that loads the exploit, contained in the other files, repeatedly into an iframe.
 
 * python의 `SimpleHTTPServer`와 같은 모듈을 활용하여 `iframe.html` on one site and `exploit.html`, `exploit.js` and `wokrer.js` on another. Change line 13 in `iframe.html` to the URL of exploit.html
-* Full exploit이 제대로 동작하기 위해선 --no-sandbox 인자를 포함한 상태로 Chrome.exe를 실행시킬 것
-* navigate to iframe.html
+* Full exploit이 제대로 동작하기 위해선 `--no-sandbox` 인자를 commandline에 포함한 상태로 Chrome.exe를 실행시킬 것
+* Chrome으로 `iframe.html`을 방문하게 되면 exploit이 
 
 
 
@@ -25,7 +25,7 @@ Google은 Chrome에 대한 소스를 제공하고 있으며, 문제가 발생하
 
 패치된 함수는 `FileReaderLoader::ArrayBufferResult` 함수로서 패치 전/후의 모습은 다음과 같다.
 
-- Old
+- Old `FileReaderLoader::ArrayBufferResult`
 
 ```C++
 DOMArrayBuffer* FileReaderLoader::ArrayBufferResult() {
@@ -48,7 +48,7 @@ DOMArrayBuffer* FileReaderLoader::ArrayBufferResult() {
 }
 ```
 
-- New
+- New `FileReaderLoader::ArrayBufferResult`
 
 ```C++
 DOMArrayBuffer* FileReaderLoader::ArrayBufferResult() {
@@ -82,8 +82,6 @@ DOMArrayBuffer* FileReaderLoader::ArrayBufferResult() {
 패치되지 않은 경우와의 주요 차이점은 3번 항목, 즉, **`finished_loading`이 설정되지 않은 경우에** 해당하는데, 두 경우를 비교하면 구체적인 root cause를 분석할 수 있다.
 
 
-## Root Cause
-
 - Old
 ```C++
 DOMArrayBuffer* result = DOMArrayBuffer::Create(raw_data_->ToArrayBuffer());
@@ -94,11 +92,14 @@ return DOMArrayBuffer::Create(ArrayBuffer::Create(raw_data_->Data(), raw_data_->
 ```
 
 
+위 비교에서 확인할 수 있듯, 두 가지 버전의 주요 차이점은 `DOMArrayBuffer::Create`에 사용되는 인자가 서로 다르다.
 
-패치된 버전은 `DOMArrayBuffer`를 생성하는데 2개의 인자를 사용하는데 (1) `ArrayBuffer::Create` 함수의 반환값 (2) `raw_data_->ByteLength()` 함수 로 구성된다.
+패치 전의 인자는 `ArrayBufferBuilder::ToArrayBuffer()`를 사용하고 있으며, 패치 후의 경우,  `ArrayBuffer::Create` 함수로 변경되었다. 두 경우 모두 `scoped_refptr<ArrayBuffer>` 형태의 값을 반환한다.
 
+먼저 패치된 버전을 살펴보면 `ArrayBuffer::Create` 함수는 2개의 인자를 사용하는데 (1) `Data` (2) `ByteLength`로 구성된다.
 `ArrayBuffer::Create(const void*, size_t)` 함수의 원형은 다음과 같다.
 
+* `ArrayBuffer::Create(const void*, size_t)`
 ```C++
 scoped_refptr<ArrayBuffer> ArrayBuffer::Create(const void* source,
                                                size_t byte_length) {
@@ -118,7 +119,55 @@ scoped_refptr<ArrayBuffer> ArrayBuffer::Create(const void* source,
 2. `scoped_refptr<ArrayBuffer>`에 1에서 생성된 `ArrayBuffer` 저장
 3. `memcpy` 함수를 통해 `source`를 `byte_length`만큼 생성된 버퍼에 복사
 
-이라 말할 수 있다. `scoped_refptr`은 Chrome이 reference count를 관리하는 자료형으로서, 특정 오브젝트를 참조하는 다른 오브젝트의 개수를 나타내기 위해 쓰인다[2].
+이라 말할 수 있다. 2에서 사용되는 `scoped_refptr`은 Chrome이 reference count를 관리하는 자료형으로서, 특정 오브젝트를 참조하는 다른 오브젝트의 개수를 나타내기 위해 쓰인다[2]. 이는 Use-After-Free 버그와 특히 관계가 깊은 부분으로서,
+
+
+
+반대로 패치 전의 코드에서 사용하는 `ArrayBufferBuilder::ToArrayBuffer()` 함수를 살펴보면 다음과 같다. [3]
+
+* `ArrayBufferBuilder::ToArrayBuffer()`
+
+```C++
+scoped_refptr<ArrayBuffer> ArrayBufferBuilder::ToArrayBuffer() {
+  // Fully used. Return m_buffer as-is.
+  if (buffer_->ByteLength() == bytes_used_)
+    return buffer_;
+
+  return buffer_->Slice(0, bytes_used_);
+}
+```
+`ToArrayBuffer` 함수는 크게 2가지의 경우로 나뉘는데, 하나는 `buffer_->ByteLength() == bytes_used_`를 만족하는 경우로 `ArrayBufferBuilder`의 멤버 변수인 `buffer_` 값을 **아무런 조작없이 그대로 반환**한다(`buffer_`의 선언은 [4]에 나타나있다). 그 반대의 경우, 현재 `ArrayBufferBuilder`의 `bytes_used_` 개수만큼의 데이터를 다음과 같이 복사하게 된다.
+
+그 반대의 경우, `ArrayBuffer::Slice(int begin, int end)` 함수를 실행시키게 된다. [5][6]
+
+* `ArrayBuffer::Slice(int begin, int end)`
+```C++
+scoped_refptr<ArrayBuffer> ArrayBuffer::Slice(int begin, int end) const {
+  return SliceImpl(ClampIndex(begin), ClampIndex(end));
+}
+
+scoped_refptr<ArrayBuffer> ArrayBuffer::SliceImpl(unsigned begin,
+                                                  unsigned end) const {
+  size_t size = static_cast<size_t>(begin <= end ? end - begin : 0);
+  return ArrayBuffer::Create(static_cast<const char*>(Data()) + begin, size);
+}
+```
+
+`Slice` 함수는 `SliceImpl`를 호출하고, 이어서 `SliceImpl`는 `ArrayBuffer::Create`를 통해 **새로운 `ArrayBuffer`를 생성**하고 이를 반환한다.
+
+
+즉, 취약한 버전과 패치된 버전의 주요 차이점은
+
+- `finished_loading_`이 set되지 않은 상태에서(로드가 완료되지 않은 상태에서)
+- `buffer_->ByteLength() == bytes_used_`를 만족하는 경우,
+- `DOMArrayBuffer::Create`의 인자로 새로 생성되지 않은 기존의 `scoped_refptr<ArrayBuffer>`가 전달된다
+
+으로 정리할 수 있다.
+
+
+
+
+## Root Cause Analysis
 
 
 
@@ -132,3 +181,13 @@ scoped_refptr<ArrayBuffer> ArrayBuffer::Create(const void* source,
 [1] https://securingtomorrow.mcafee.com/blogs/other-blogs/mcafee-labs/analysis-of-a-chrome-zero-day-cve-2019-5786/
 
 [2] https://www.chromium.org/developers/smart-pointer-guidelines
+
+[3] https://github.com/chromium/chromium/blob/17cc212565230c962c1f5d036bab27fe800909f9/third_party/blink/renderer/platform/wtf/typed_arrays/array_buffer_builder.cc#L103
+
+[4] https://github.com/chromium/chromium/blob/17cc212565230c962c1f5d036bab27fe800909f9/third_party/blink/renderer/platform/wtf/typed_arrays/array_buffer_builder.h#L94
+
+[5] https://github.com/chromium/chromium/blob/17cc212565230c962c1f5d036bab27fe800909f9/third_party/blink/renderer/platform/wtf/typed_arrays/array_buffer.h#L264
+
+[6] https://github.com/chromium/chromium/blob/17cc212565230c962c1f5d036bab27fe800909f9/third_party/blink/renderer/platform/wtf/typed_arrays/array_buffer.h#L272
+
+
