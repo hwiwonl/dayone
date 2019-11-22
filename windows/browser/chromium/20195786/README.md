@@ -6,13 +6,17 @@ This exploit uses site-isolation to brute-force the vulnerability. iframe.html i
 
 * python의 `SimpleHTTPServer`와 같은 모듈을 활용하여 `iframe.html` on one site and `exploit.html`, `exploit.js` and `wokrer.js` on another. Change line 13 in `iframe.html` to the URL of exploit.html
 * Full exploit이 제대로 동작하기 위해선 `--no-sandbox` 인자를 commandline에 포함한 상태로 Chrome.exe를 실행시킬 것
-* Chrome으로 `iframe.html`을 방문하게 되면 exploit이 
+* Chrome으로 `iframe.html`을 방문하게 되면 exploit이 수행된다.
+
+
 
 
 
 # Root Cause Analysis
 
-자세한 정보는 [1]을 참고하였다.
+자세한 정보는 [1], [8]을 참고하였다.
+
+The FileReader object lets web applications asynchronously read the contents of files (or raw data buffers) stored on the user's computer, using File or Blob objects to specify the file or data to read.
 
 
 ## Patch Analysis
@@ -169,6 +173,43 @@ scoped_refptr<ArrayBuffer> ArrayBuffer::SliceImpl(unsigned begin,
 
 ## Root Cause Analysis
 
+`FileReaderLoader::ArrayBufferResult`가 실행하는 `DOMArrayBuffer::Create`는 다음과 같다.
+
+* `DOMArrayBuffer::Create`
+```C++
+  static DOMArrayBuffer* Create(scoped_refptr<WTF::ArrayBuffer> buffer) {
+    return MakeGarbageCollected<DOMArrayBuffer>(std::move(buffer));
+  }
+```
+
+`DOMArrayBuffer::Create` 함수는 인자로 전달된 버퍼를 `std::move` 함수를 통해 `DOMArrayBuffer` 클래스로 이동시킨다.
+C++의 `std::move`는 오브젝트를 이동시키기 위한 함수로서, 일반적인 copy와는 그 동작이 다르다 예를 들어,
+
+```C++
+  template <class T>
+  swap1(T& a, T& b) {
+      T tmp(a);   // a의 copy 생성.
+      a = b;      // b의 copy 생성 (+ a의 copy 중 하나 소멸)
+      b = tmp;    // tmp의 copy가 2개가 됨 (+b의 copy 중 하나 소멸)
+  }
+
+  //move를 쓰면 copy하지 않고 swap이 가능해 짐
+  template <class T>
+  swap2(T& a, T& b) {
+      T tmp(std::move(a));
+      a = std::move(b);   
+      b = std::move(tmp);
+  }
+```
+위와 같은 코드가 주어졌을 때, `swap1`의 경우, 여러번의 copy가 발생하지만, `swap2`의 경우, copy 없이도 오브젝트 간의 이동을 통해 swap 기능을 구현하였다. 여기서 중요한 점은 `std::move`를 통해 오브젝트를 이동시키면 기존에 오브젝트를 가지고 있던 변수는 undefined 상태가 된다는 점이다. 예를 들어,
+
+```C++
+  string a = "hello";
+  string b = std::move(a);
+```
+위 코드에서 `a`에는 더이상 `"hello"`가 남아있지 않게 된다.
+
+
 
 
 
@@ -190,4 +231,8 @@ scoped_refptr<ArrayBuffer> ArrayBuffer::SliceImpl(unsigned begin,
 
 [6] https://github.com/chromium/chromium/blob/17cc212565230c962c1f5d036bab27fe800909f9/third_party/blink/renderer/platform/wtf/typed_arrays/array_buffer.h#L272
 
+[7] https://github.com/chromium/chromium/blob/17cc212565230c962c1f5d036bab27fe800909f9/third_party/blink/renderer/core/typed_arrays/dom_array_buffer.h#L20
+
+
+[8] https://blog.exodusintel.com/2019/03/20/cve-2019-5786-analysis-and-exploitation/
 
