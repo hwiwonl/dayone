@@ -11,6 +11,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2018-4314](macos/browser/safari/cve-2018-4314/README.md) | Safari | Browser | macOS | 11.1.2 (64bit) | _Hwiwon Lee_
 [CVE-2015-5932](macos/kernel/cve-2015-5932/README.md) | macOS | Kernel | macOS | < 10.11 | _Hwiwon Lee_
 [CVE-2019-8646](ios/iMessage/cve-2019-8646/README.md) | iMessage | Messenger | iOS | 12.1.x | _Hwiwon Lee_
+[CVE-2016-1961](windows/browser/firefox/cve-2016-1961/README.md) | Firefox | Browser | Windows | < 45 (32bit&64bit) | _Hwiwon Lee_
 [CVE-2016-3207](windows/browser/ie/20163207/README.md) | IE | Browser | Windows | 11.0.9600.17420(32bit) | _Hyeonhak Kim_
 [CVE-2017-0037](windows/browser/ie/20170037/README.md) | IE | Browser | Windows | 11.0.9600.18537(32bit) | _Hyeonhak Kim_
 [CVE-2019-9760](windows/FTP/FTPGetter5.97/README.md) | FTPGetter | FTP Client | Windows | 5.97.0.177(64bit) | _Hyeonhak Kim_
@@ -24,10 +25,10 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2017-15399](windows/browser/chromium/201715399/README.md) | Chrome | Browser | Windows | 62.0.3202.89  | _Youngjoon Kim_
 [CVE-2017-5070](windows/browser/chromium/20175070/README.md) | Chrome | Browser | Windows | 58.0.3029.110  | _Youngjoon Kim_
 [CVE-2018-17463](windows/browser/chromium/201817463/README.md) | Chrome | Browser | Windows | < 70.0.3538.64  | _Youngjoon Kim_
-[CVE-2017-5375&CVE-2016-1960](windows/browser/firefox/Firefox%2044.0.2%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-1960)/README.md) | firefox | Browser | Windows | 44.0.2 | _Sungha Park_
-[CVE-2017-5375&CVE-2016-2819](windows/browser/firefox/Firefox%2046.0.1%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-2819)/README.md) | firefox | Browser | Windows | 46.0.1 | _Sungha Park_
-[CVE-2017-5375&CVE-2016-9079](windows/browser/firefox/Firefox%2050.0.1%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-9079)/README.md) | firefox | Browser | Windows | 50.0.1 | _Sungha Park_
-[CVE-2017-5415](windows/browser/firefox/Mozilla%20Firefox%20-%20Address%20Bar%20Spoofing/README.md) | firefox | Browser | Windows | 50.0.1 | _Sungha Park_
+[CVE-2017-5375&CVE-2016-1960](windows/browser/firefox/Firefox%2044.0.2%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-1960)/README.md) | Firefox | Browser | Windows | 44.0.2 | _Sungha Park_
+[CVE-2017-5375&CVE-2016-2819](windows/browser/firefox/Firefox%2046.0.1%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-2819)/README.md) | Firefox | Browser | Windows | 46.0.1 | _Sungha Park_
+[CVE-2017-5375&CVE-2016-9079](windows/browser/firefox/Firefox%2050.0.1%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-9079)/README.md) | Firefox | Browser | Windows | 50.0.1 | _Sungha Park_
+[CVE-2017-5415](windows/browser/firefox/Mozilla%20Firefox%20-%20Address%20Bar%20Spoofing/README.md) | Firefox | Browser | Windows | 50.0.1 | _Sungha Park_
 [CVE-2019-0541](windows/browser/ie/Microsoft%20Windows%20MSHTML%20Engine%20-%20Edit%20Remote%20Code%20Execution(CVE-2019-0541)/README.md) | ie | Browser | Windows | 8.0.6001.18702| _Sungha Park_
 [CVE-2019-9766](windows/windows/player/free_mp3_cd_ripper/README.md) | Free MP3 CD Ripper | player | Windows | 2.6 | _Sungha Park_
 [CVE-2019-???(EDB-46279)](windows/player/HTML5%20Video%20Player/README.md) | HTML5 Video Player | player | Windows | 1.2.5 | _Sungha Park_
