@@ -36,7 +36,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2018-15877](linux/wordpress/README.md) | wordpress | Application | linux | 20161228 and prior | _Sungha Park_
 [CVE-2018-8174](windows/browser/ie/20188174/README.md) | IE | Browser | Windows | 8~11(IE ver)  | _Sungha_Park_
 [CVE-2019-8044](windows/PDF_Reader/CVE-2019-8044/README.md) | Adobe Acrobat Reader DC | PDF Reader | Windows | Newest  | _Sungha_Park_
-[CVE-2018-11776](linux/apache/CVE-2018-11776/README.md) | Apache Struts | Windows,Linux | 2.3<2.3.34 / 2.5<2.5.16 | _Sungha_Park_
+[CVE-2018-11776](linux/apache/CVE-2018-11776/README.md) | Apache Struts | Apache Web Application | Windows,Linux | 2.3<2.3.34 / 2.5<2.5.16 | _Sungha_Park_
 [CVE-2018-4878](windows/flash/20184878/README.md) | Adobe Flash Player | Flash Player | Windows | 28.0.0.137 | _Younggi Park_
 [CVE-2018-4990](windows/PDF_Reader/CVE-2018-4990/README.md) | Adobe Acrobat Reader DC | PDF Reader | Windows | 17.00920044, 18.01120038 | _Younggi Park_
 [CVE-2018-8120](windows/kernel/CVE-2018-8120/README.md) | win7 x86 SP1 | Kernel | Windows | 6.1.7601 | _Younggi Park_
