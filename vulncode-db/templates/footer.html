@@ -1,0 +1,67 @@
+<!-- Footer -->
+<!-- 페이지의 하단부 영역 -->
+<footer class="page-footer text-center text-md-left font-small special-color-dark pt-4 mt-4">
+	<div class="container-fluid text-center text-md-left">
+		<div class="row">
+			
+			<div class="col-md-6 pb-3 text-center">
+        <a href="#" class="emblem">
+          <img src="/images/emblem5.png" alt="Korea University">
+        </a>
+
+      </div>
+      
+      <div class="col-md-6 pb-3 text-md-left">
+        <li> TEL. 02-3290-4251~3 / FAX. 02-928-9109 </li>
+        <li> http://gss.korea.edu/ </li>
+      </div>
+
+      
+		</div>
+	</div>
+
+	<div class="footer-copyright py-3 text-center">
+		© 2019 Copyright:
+		<a href="#"> Center for Information Security Technologies (CIST) </a>
+	</div>
+</footer>
+
+
+<!-- Footer -->
+<script src="{{ url_for('frontend.serve_static', path='js/main.js') }}" type="module" crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+<!-- load monaco after all the other scripts to avoid issues with AMD defines -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/loader.js"
+        integrity="sha256-DCcsMJctA23m3sXp1RrDWMEb5YtO7w+6TIUVHzDnK6Y="
+        crossorigin="anonymous"></script>
+
+<script>
+  require.config(
+      {paths: {'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs'}});
+
+  // Before loading vs/editor/editor.main, define a global MonacoEnvironment that overwrites
+  // the default worker url location (used when creating WebWorkers). The problem here is that
+  // HTML5 does not allow cross-domain web workers, so we need to proxy the instantiation of
+  // a web worker through a same-domain script
+  window.MonacoEnvironment = {
+    getWorkerUrl: function (workerId, label) {
+      return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
+        self.MonacoEnvironment = {
+          baseUrl: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/'
+        };
+        importScripts('https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.14.3/min/vs/base/worker/workerMain.js');`
+      )}`;
+    }
+  };
+</script>
+
+{# TODO: This is currently disabled. Enable it again once it becomes useful.
+  <script src="{{ url_for('frontend.serve_static', path='js/tutorial.js') }}" type="module"></script>
+  <link rel="stylesheet" href="{{ url_for('frontend.serve_static', path='css/tutorial.css') }}">
+#}

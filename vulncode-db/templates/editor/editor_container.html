@@ -1,0 +1,27 @@
+{% set vuln_view = vulnerability_details.vulnerability_view %}
+{% set master_commit = vuln_view.master_commit %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark w-100">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link py-0" href="#" id="open_file_path" target="_blank"></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link py-0" href="{{ master_commit.repo_url }}" target="_blank">{{ master_commit.repo_name }}</a>
+    </li>
+  </ul>
+</nav>
+<div id="editor"></div>
+<div id="editor_theme" class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name="theme_selection" id="vs-dark" autocomplete="off" checked>VS-Dark
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="theme_selection" id="vs-bright" autocomplete="off">VS-Bright
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="theme_selection" id="monokai" autocomplete="off">Monokai
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="theme_selection" id="darcula" autocomplete="off">Darcula
+  </label>
+</div>

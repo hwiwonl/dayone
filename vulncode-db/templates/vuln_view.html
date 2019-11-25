@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% set vuln_view = vulnerability_details.vulnerability_view %}
+{% if vuln_view %}
+  {% block title %}{% set vuln_view = vulnerability_details.vulnerability_view %}{{ vuln_view.id }}{% endblock %}
+{% endif %}
+
+{% block main_content %}
+  <script>
+    const EDITOR_SETTINGS = {{ vulnerability_details.getSettings()|tojson }};
+    window.EDITOR_SETTINGS = EDITOR_SETTINGS;
+  </script>
+
+  <div class="row mb-3">
+    <div class="col-sm-8 offset-md-2">
+      {% include 'vuln_info.html' %}
+    </div>
+  </div>
+
+
+  {% if vulnerability_details.vulnerability_view %}
+    {% block vulnerability_content %}
+    {% endblock %}
+  {% endif %}
+
+{% endblock %}

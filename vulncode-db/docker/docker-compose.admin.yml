@@ -1,0 +1,54 @@
+version: '2'
+services:
+  go-cve-dictionary:
+    build:
+      context: ..
+      dockerfile: ./docker/go-cve-dictionary/Dockerfile
+    image: go-cve-dictionary
+    links:
+      - "database"
+    volumes:
+      - ./cve-data/:/vuls
+      - ./cve-data/logs:/var/log/vuls
+    depends_on:
+      - database
+    # Uncomment if you prefer using a host database instead.
+    #network_mode: "host"
+
+  utils:
+    build:
+      context: ..
+      dockerfile: ./docker/utils/Dockerfile
+    image: utils
+    volumes:
+      - ../:/app
+
+  tests-db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password --init-file /docker-entrypoint-initdb.d/db_schema.sql --character-set-server=utf8 --collation-server=utf8_general_ci
+    tmpfs:
+      - /var/lib/mysql:rw,noexec,nosuid,size=1024m
+    volumes:
+      - ./db_schema.sql:/docker-entrypoint-initdb.d/db_schema.sql
+      - ../:/app
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: test_db_pass
+    expose:
+      - "3306"
+
+  tests:
+    image: frontend
+    # Wait for the database to be available before starting the tests.
+    command: >
+      bash -c "while ! (exec 6<>/dev/tcp/tests-db/3306) 2>/dev/null; do
+        echo 'Waiting for tests-db:3306...'; sleep 5;
+      done;
+      bash /app/tests/run_integration_tests.sh"
+    environment:
+      MYSQL_HOST: tests-db
+      COOKIE_SECRET_KEY: not-so-secret
+    depends_on:
+      - tests-db
+    volumes:
+    - ../:/app
