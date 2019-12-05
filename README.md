@@ -12,6 +12,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2015-5932](macos/kernel/cve-2015-5932/README.md) | macOS | Kernel | macOS | < 10.11 | _Hwiwon Lee_
 [CVE-2019-8646](ios/iMessage/cve-2019-8646/README.md) | iMessage | Messenger | iOS | 12.1.x | _Hwiwon Lee_
 [CVE-2016-1961](windows/browser/firefox/cve-2016-1961/README.md) | Firefox | Browser | Windows | < 45 (32bit&64bit) | _Hwiwon Lee_
+[CVE-2016-9899](windows/browser/firefox/cve-2016-9899/README.md) | Firefox | Browser | Windows | < 50.1.0 (32bit&64bit) | _Hwiwon Lee_
 [CVE-2016-3207](windows/browser/ie/20163207/README.md) | IE | Browser | Windows | 11.0.9600.17420(32bit) | _Hyeonhak Kim_
 [CVE-2017-0037](windows/browser/ie/20170037/README.md) | IE | Browser | Windows | 11.0.9600.18537(32bit) | _Hyeonhak Kim_
 [CVE-2019-9760](windows/FTP/FTPGetter5.97/README.md) | FTPGetter | FTP Client | Windows | 5.97.0.177(64bit) | _Hyeonhak Kim_
