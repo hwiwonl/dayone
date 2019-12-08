@@ -25,8 +25,11 @@ INT __stdcall ACEExtract(LPSTR ArchiveName, pACEExtractStruc Extract);
 ```
 ### ACE 포맷 이해
 ACE 아카이브 생성 자체는 특허로 보호되고 있기에, WinACE로만 파일을 생성할 수 있다. 또한, 이는 2007년 11월이 최종 버전이다. (ACE에서 파일을 추출하는 것은 특허 범위에 포함되지 않는다.)  ACE 파일의 구조를 파악하기 위해, WinACE를 이용하여 ace 파일을 생성한 후,  헤더정보를 확인해보면 아래 그림과 같다.
+
 ![](2019-12-08-18-32-53.png)
+
 [acefile 프로젝트](https://pypi.org/project/%3Ccode%3Eacefile%3C/code%3E%20/)에서 제공하는 acefile.py를 이용하여 헤더 정보를 분석하면, 아래 그림과 같은 정보를 알 수 있다. 
+
 ![](2019-12-08-18-33-12.png)
 
 중요한 정보들은 아래와 같다.
@@ -41,9 +44,13 @@ WinACE가 등록되지 않은 버전을 사용하여 생성된 경우 이 필드
  - hdr_size : 헤더 크기이다. 
 
 이 중, filename 필드에서 상대 경로를 포함하므로, Path Traversal에 취약할 가능성이 있다. 취약점을 발견한 해당 팀은 퍼저를 제작하여 취약점을 발견하였다. 
+
 ![](2019-12-08-18-34-53.png)
+
 위 그림을 보면, 의도되지 않은 경로에 의도하지 않은 파일을 압축 해제함을 알 수 있다. 그러나, 이를 WinRAR에서 제대로 trigger하여 임의의 경로에 파일을 쓰기 위해서는 유효성 검증 절차를 통과해주어야 한다. 
+
 ![](2019-12-08-18-35-07.png)
+
 그 의사 코드는 위와 같고, 요약하면 아래와 같다.
 1. 첫 번째 문자는 "\"이나 "/"이 아닐 것
 2. 파일이름은 "../"이나 "..\"으로 시작하지 않을 것
@@ -53,7 +60,9 @@ unacv2.dll에서 호출하는 압축 해제 함수는 상대 경로로 StateCall
 
 ## Root Cause
 이제, 상대 경로가 절대 경로로 취급되는 원인을 파악한다. DynamoRio를 이용하여 Coverage 비교를 한 결과,아래와 같은 취약한 부분을 볼 수 있다. 
+
 ![](2019-12-08-18-35-36.png)
+
 코드 적용 결과에서 익스플로잇 파일이 다른 기본 블록 (파란색으로 표시됨)을 거치지 않고 반대 기본 블록 (빨간색 화살표로 표시된 잘못된 상태)으로 흐른다는 것을 확인할 수 있다. 코드 흐름이 빨간 화살표 부분을 통과하면 연두색 프레임 안에있는 줄이 대상 폴더를 ""(빈 문자열)로 바꾸고 나중에 sprintf함수 호출을 수행하여 대상 폴더를 추출된 파일의 상대 경로에 연결한다. 이 떄  GetDevicePathLen이 0이면 sprintf는 다음과 같다.
 ```c++
 sprintf(final_file_path, "%s%s", destination_folder, file_relative_path);
@@ -62,10 +71,12 @@ sprintf(final_file_path, "%s%s", destination_folder, file_relative_path);
 ```c++
 sprintf(final_file_path, "%s%s", "", file_relative_path);
 ```
-이 때, 아래의 sprintf은 경로 탐색 취약점을 유발하는 버그가있는 코드이다.
+이 때, 아래의 sprintf은 경로 탐색 취약점을 유발하는 버그가 있는 코드이다.
 즉, 상대 경로는 사실상 생성되거나 써여야 할 파일이나 디렉토리의 절대경로로 처리된다. 
 근본 원인을 더 잘 이해하기 위해 GetDevicePathLen 함수를 살펴 보면, 아래와 같다.
+
 ![](2019-12-08-18-35-48.png)
+
 해당 함수에서는 상대 경로를 인자로 받은 후 디바이스나 드라이브 이름이 경로 인자에 들어가있는지를 보고, 해당 문자열의 길이를 리턴한다. 예를 들면, 아래와 같다.
  - C:\some_folder\some_file.ext인 경우, 3 반환
  - \some_folder\some_file.ext인 경우, 1 반환
@@ -74,9 +85,12 @@ sprintf(final_file_path, "%s%s", "", file_relative_path);
  - some_folder\some_file.ext인 경우, 0 반환
 
  이 때, GetDevicePathLen이 0보다 크면 그 길이만큼 호출된 값주에서 폴더가 빈 문자열로 바뀌기 때문에, 파일의 상대 경로가 전체 경로로 간주되면서 sprintf에서 경로 탐색 취약점이 발생하게 된다. 그러나, 이를 호출하기 전에 허용되지 않는 시퀀스를 삭제하여 상대경로값을 정리하는 기능이 있따. 그 의사코드는 아래와 같다.
+
 ![](2019-12-08-18-35-59.png)
+ 
  이 함수는 "\..\"와 같은 간단한 시퀀스들을 생략한다. 
 ### 우회
+ 
  익스플로잇 파일을 생성하여 WinRAR이 아카이브된 파일을 임의의 경로로 압축을 해제하도록 하려면, 두 가지 기능을 우회해주어야 한다. 
  먼저, 
  ```c++
@@ -99,7 +113,9 @@ sprintf(final_file_path, "%s%s", "", file_relative_path);
 
 ### 악용 파일의 예시
 다음과 같이 filename 필드를 조작하여 임의의 경로에 임의의 파일을 생성할 수 있다. 
+
 ![](2019-12-08-18-36-50.png)
+
 ### Path Traversal을 이용한 Code Execution
 Startup폴더를 이용하여 코드 실행을 가능하게 할 수 있다. 
 - C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp
