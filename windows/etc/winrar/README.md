@@ -120,12 +120,16 @@ sprintf(final_file_path, "%s%s", "", file_relative_path);
 Startup폴더를 이용하여 코드 실행을 가능하게 할 수 있다. 
 - C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp
 - C:\Users\<user name>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+
 WinRAR은 중간 단계의 권한으로 실행되는데, 위 첫 번째 경로는 높은 권한이 필요하므로, UAC 우회가 필요하다. 그러나, 2번째 경로는 기본 권한으로 파일을 저장할 수 있지만, Username을 알아야 한다. 이를 신경쓰지 않기 위해서는 아래와 같이 경로를 넣으면 된다.
  - C:\C:C:../AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\some_file.exe
+
 위와같이 경로를 설정할 경우, CleanPath 함수에 의해 "C:\C:"를 순차적으로 제거하기 때문에, 다음 경로로 변환된다.
  - C:../AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\some_file.exe
+
 또한, 이는 GetDevicePathLen에서 2를 반환하기 때문에, 결국 아래와 같은 경로만 남는다.
  - ../AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\some_file.exe
+
 이는 상대경로이므로 현재 디렉토리에 종속적이지만, 일반적으로, Download폴더나 Desktop 폴더는 아래 경로에 있기 때문에, 성공적으로 Startup 폴더에 도달할 수 있따. 
 - C:\Users\<user name>\Downloads
 - C:\Users\<user name>\Desktop
