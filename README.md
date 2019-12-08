@@ -37,7 +37,6 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2019-9766](windows/windows/player/free_mp3_cd_ripper/README.md) | Free MP3 CD Ripper | player | Windows | 2.6 | _Sungha Park_
 [CVE-2019-???(EDB-46279)](windows/player/HTML5%20Video%20Player/README.md) | HTML5 Video Player | player | Windows | 1.2.5 | _Sungha Park_
 [CVE-2018-15877](linux/wordpress/README.md) | wordpress | Application | linux | 20161228 and prior | _Sungha Park_
-[CVE-2018-8174](windows/browser/ie/20188174/README.md) | IE | Browser | Windows | 8~11(IE ver)  | _Sungha_Park_
 [CVE-2019-8044](windows/PDF_Reader/CVE-2019-8044/README.md) | Adobe Acrobat Reader DC | PDF Reader | Windows | Newest  | _Sungha_Park_
 [CVE-2018-11776](linux/apache/CVE-2018-11776/README.md) | Apache Struts | Apache Web Application | Windows,Linux | 2.3<2.3.34 / 2.5<2.5.16 | _Sungha_Park_
 [CVE-2018-20250](windows/etc/winrar/README.md) | WinRAR, BANDIZIP, etc | ETC | Windows | <=5.61(WINRAR), <=6.20(BANDIZIP) | _Sungha_Park_
