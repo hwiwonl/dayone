@@ -1,0 +1,35 @@
+{
+  "name": "to-mark",
+  "authors": [
+    "NHN Ent. FE Development Lab <dl_javascript@nhnent.com> (https://nhnent.github.io/to-mark/)"
+  ],
+  "moduleType": [
+    "globals",
+    "es6",
+    "amd",
+    "node"
+  ],
+  "main": [
+    "dist/to-mark.js"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib/",
+    "test",
+    "src"
+  ],
+  "homepage": "https://github.com/nhnent/to-mark",
+  "version": "1.1.9",
+  "_release": "1.1.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.9",
+    "commit": "4d998e5fadf8317705f3318e921c0bba91fc8c75"
+  },
+  "_source": "https://github.com/nhnent/to-mark.git",
+  "_target": "^1.1.8",
+  "_originalSource": "to-mark"
+}

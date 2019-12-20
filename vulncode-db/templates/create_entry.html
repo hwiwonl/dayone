@@ -3,6 +3,31 @@
 {% extends "base.html" %}
 {% block main_content %}
 
+  <!-- <link rel="stylesheet" href="/css/tui-editor.css"></link>
+  <link rel="stylesheet" href="/css/tui-editor-contents.css"></link>
+  <link rel="stylesheet" href="/css/codemirror.css"></link>
+  <link rel="stylesheet" href="/css/github.min.css"></link>
+  <script src="/js/tui-editor-Editor-full.js"></script> -->
+
+  <!-- <link rel="stylesheet" href="https://uicdn.toast.com/tui-editor/latest/tui-editor.css"></link>
+  <link rel="stylesheet" href="https://uicdn.toast.com/tui-editor/latest/tui-editor-contents.css"></link>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css"></link>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css"></link>
+  <script src="https://uicdn.toast.com/tui-editor/latest/tui-editor-Editor-full.js" id="tui-editor"></script> -->
+
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src='/bower_components/markdown-it/dist/markdown-it.js'></script>
+  <script src="/bower_components/to-mark/dist/to-mark.js"></script>
+  <script src="/bower_components/tui-code-snippet/dist/tui-code-snippet.js"></script>
+  <script src="/bower_components/codemirror/lib/codemirror.js"></script>
+  <script src="/bower_components/highlightjs/highlight.pack.js"></script>
+  <script src="/bower_components/squire-rte/build/squire-raw.js"></script>
+  <script src="/bower_components/tui-editor/dist/tui-editor-Editor-all.js"></script>
+  
+  <link rel="stylesheet" href="/bower_components/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" href="/bower_components/highlightjs/styles/github.css">
+  <link rel="stylesheet" href="/bower_components/tui-editor/dist/tui-editor.css">
+  <link rel="stylesheet" href="/bower_components/tui-editor/dist/tui-editor-contents.css">
 
   <div class="row">
     <div class="col-md-4 offset-md-4">
@@ -64,6 +89,38 @@
     <div class="col-sm-4">
       {% include 'vuln_info.html' %}
     </div>
+    <div class="col-md-8 offset-md-2">
+      <div class="card flex-md-row mb-4 box-shadow h-md-250 w-100">         
+        <div class="card-body">
+          <h4>Writeup Editor</h4>
+          <div id="markdown_editor"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var editor = new tui.Editor({
+        el: document.querySelector("#markdown_editor"),
+        initialEditType: 'markdown',
+        previewStyle: 'vertical',
+        height: '800px',
+        exts: [
+          {
+            name: 'chart',
+            minWidth: 100,
+            maxWidth: 600,
+            minHeight: 100,
+            maxHeight: 300
+          },
+          'scrollSync',
+          // 'colorSyntax',
+          'uml',
+          'mark',
+          'table'
+        ]
+      });
+      editor.setValue("asdf");
+      console.log(editor);
+    </script>
   </div>
 
 

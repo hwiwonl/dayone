@@ -21,6 +21,7 @@
       </p>
       - Vulnerability Info
       <small><a href="{{ url_for('vuln.create_vuln', vuln_id=vuln_id) }}">(edit)</a></small>
+      <small><a href="{{ url_for('vuln.writeup_view', vuln_id=vuln_id) }}">(writeup)</a></small>
     </h5>
 
     <h6 class="card-subtitle mb-2 text-muted">{{ vuln_view.date_created }}</h6>

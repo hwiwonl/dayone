@@ -1,0 +1,32 @@
+{
+  "name": "squire-rte",
+  "homepage": "https://github.com/neilj/Squire",
+  "authors": [
+    "Neil Jenkins <neil@nmjenkins.com>"
+  ],
+  "description": "Squire is an HTML5 rich text editor, which provides powerful cross-browser normalisation, whilst being supremely lightweight and flexible.",
+  "main": "build/squire.js",
+  "keywords": [
+    "wysiwyg",
+    "editor",
+    "text",
+    "html",
+    "squire"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "fb6cd9b1ac",
+  "_resolution": {
+    "type": "commit",
+    "commit": "fb6cd9b1ac66ca471ded83637523c4fbf7072f86"
+  },
+  "_source": "https://github.com/seonim-ryu/Squire.git",
+  "_target": "fb6cd9b1ac66ca471ded83637523c4fbf7072f86",
+  "_originalSource": "seonim-ryu/Squire"
+}

@@ -26,3 +26,8 @@ docker/cve-data/*
 .coverage
 htmlcov
 .pytest_cache
+
+
+# for npm project
+node_modules
+# bower_components
