@@ -93,7 +93,8 @@
       <div class="card flex-md-row mb-4 box-shadow h-md-250 w-100">         
         <div class="card-body">
           <h4>Writeup Editor</h4>
-          <div id="markdown_editor"></div>
+          <div id="markdown_editor">{{writeup}}</div>
+          <input type="submit" class="btn btn-primary" id="btnSaveWriteup" value="Save writeup"/>
         </div>
       </div>
     </div>
@@ -118,7 +119,34 @@
           'table'
         ]
       });
-      editor.setValue("asdf");
+      $("#btnSaveWriteup").click(function(){
+        var body = editor.getValue();
+        var csrf_token = $("input#csrf_token")[0].value;
+        console.log(csrf_token);
+        $.ajax({
+          type: 'POST',
+          url: "/{%if(vulnerability_details.suggested_id)%}{{vulnerability_details.suggested_id}}{%else%}{{vulnerability_details.id}}{%endif%}/save_writeup",
+          headers: {
+            'X-CSRF-Token' : csrf_token
+          },
+          data: JSON.stringify({
+            id : {%if(vulnerability_details.suggested_id)%}"{{vulnerability_details.suggested_id}}"{%else%}"{{vulnerability_details.id}}"{%endif%},
+            csrf_token : csrf_token,
+            body : body
+          }),
+          error: function(e) {
+            console.log(e);
+          },
+          dataType: "json",
+          contentType: "application/json"
+        });
+        // $.post("/{%if(vulnerability_details.suggested_id)%}{{vulnerability_details.suggested_id}}{%else%}{{vulnerability_details.id}}{%endif%}/save_writeup",
+        //   JSON.stringfy({
+        //     id : {%if(vulnerability_details.suggested_id)%}"{{vulnerability_details.suggested_id}}"{%else%}"{{vulnerability_details.id}}"{%endif%},
+        //     body : body
+        //   })
+        // );
+      });
       console.log(editor);
     </script>
   </div>
