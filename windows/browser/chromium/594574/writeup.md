@@ -138,7 +138,7 @@ bool IterateElements(Isolate* isolate, Handle<JSReceiver> receiver,
 }
 ```
 
-위 코드의 `FAST_HOLEY_ELEMENTS` case 문은 `fast_lengh`를 먼저 얻어낸 상태에서, `for` 구문을 통해 `fast_lengh`만큼 반복문을 실행한다. 여기서 중요한 개념은 "hole"인데, hole은 array에서 특정 인덱스의 값이 비어있는 경우를 뜻한다. 예를 들어, PoC 코드의 다음 부분은 Array에 hole이 존재하는 경우를 보여주고 있다(아래 PoC에서 사용한 case는 `FAST_HOLEY_DOUBLE_ELEMENTS`로서, 이 경우 또한 같은 문제를 공유한다)`.
+위 코드의 `FAST_HOLEY_ELEMENTS` case 문은 `fast_lengh`를 먼저 얻어낸 상태에서, `for` 구문을 통해 `fast_lengh`만큼 반복문을 실행한다. 여기서 중요한 개념은 "hole"인데, hole은 array에서 특정 인덱스의 값이 비어있는 경우를 뜻한다. 이렇게 hole이 존재할 경우에만, `is_the_hole` 함수가 `true`를 반환하여 취약한 구문을 실행할 수 있게 된다.예를 들어, PoC 코드의 다음 부분은 Array에 hole이 존재하는 경우를 보여주고 있다(아래 PoC에서 사용한 case는 `FAST_HOLEY_DOUBLE_ELEMENTS`로서, 이 경우 또한 같은 문제를 공유한다)`.
 
 ```JS
 b = new Array(10);
