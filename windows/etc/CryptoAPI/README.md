@@ -3,7 +3,7 @@
 ## Information
 - CVE : 2020-0601
 - 해당 소프트웨어 : Crypto32.dll in Windows 
-- 해당 버전 : Windows 10, Windows Server 2016 and 2019
+- 해당 버전 : Windows 10, Windows Server 2016 and 2019 (before patch jan 14,2020)
 - 취약점 유형 : 인증서 스푸핑
 
 
