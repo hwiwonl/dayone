@@ -49,6 +49,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2018-8120](windows/kernel/CVE-2018-8120/README.md) | win7 x86 SP1 | Kernel | Windows | 6.1.7601 | _Younggi Park_
 [CVE-2019-5786](windows/browser/chromium/20195786/README.md) | Chrome | Browser | Windows | 72.0.3626.119 (32bit) | _Younggi Park_
 [CVE-2018-4233](macos/browser/safari/CVE-2018-4233/README.md) | Safari | Browser | macos | Safari 11.0.3 | _Younggi Park_
+[CVE-2019-1215](windows/kernel/CVE-2019-1215/README.md) | win10 1903 x64 | Kernel | Windows | ws2ifsl 10.0.18362.1 | _Younggi Park_
 
 ## Metasploit
 [Official Repo](https://github.com/rapid7/metasploit-framework)  
