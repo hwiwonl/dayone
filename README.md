@@ -46,8 +46,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2018-11776](linux/apache/CVE-2018-11776/README.md) | Apache Struts | Apache Web Application | Windows,Linux | 2.3<2.3.34 / 2.5<2.5.16 | _Sungha_Park_
 [CVE-2018-20250](windows/etc/winrar/README.md) | WinRAR, BANDIZIP, etc | ETC | Windows | <=5.61(WINRAR), <=6.20(BANDIZIP) | _Sungha_Park_
 [CVE-2020-0601](windows/etc/CryptoAPI/README.md) | Crypto32.dll | ETC | Windows | Windows 10, Windows Server 2016 and 2019 (before patch jan 14,2020) | _Sungha_Park_
-[CVE-2020-1938](linux/apache/CVE-2020-1938/README.md) | Tomcat AJX | Web | Linux / Windows / AIX ...  | Apache Tomcat 9.x < 9.0.31, Apache Tomcat 8.x < 8.5.51, Apache Tomcat 7.x < 7.0.100
-, Apache Tomcat 6.x | _Sungha_Park_
+[CVE-2020-1938](linux/apache/CVE-2020-1938/README.md) | Tomcat AJX | Web | Linux / Windows / AIX ...  | Apache Tomcat 9.x < 9.0.31, Apache Tomcat 8.x < 8.5.51, Apache Tomcat 7.x < 7.0.100, Apache Tomcat 6.x | _Sungha_Park_
 [CVE-2018-4878](windows/flash/20184878/README.md) | Adobe Flash Player | Flash Player | Windows | 28.0.0.137 | _Younggi Park_
 [CVE-2018-4990](windows/PDF_Reader/CVE-2018-4990/README.md) | Adobe Acrobat Reader DC | PDF Reader | Windows | 17.00920044, 18.01120038 | _Younggi Park_
 [CVE-2018-8120](windows/kernel/CVE-2018-8120/README.md) | win7 x86 SP1 | Kernel | Windows | 6.1.7601 | _Younggi Park_
