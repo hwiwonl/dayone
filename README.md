@@ -15,6 +15,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2016-9899](windows/browser/firefox/cve-2016-9899/README.md) | Firefox | Browser | Windows | 49.0 ~ 50.0.2 (32bit&64bit) | _Hwiwon Lee_
 [CVE-2019-1458](windows/kernel/CVE-2019-1458/README.md) | win7-10 | Kernel | Windows | 6.1.7601 | _Hwiwon Lee_
 [CVE-2020-0796](windows/kernel/CVE-2020-0796/README.md) | win10 1903/1909 | Kernel | Windows | 18363.592 (64bit) | _Hwiwon Lee_
+[CVE-2019-7192](embedded/QNAP/CVE-2019-7192/README.md) | QNAP | Embedded | ARM/MIPS | < QTS 4.4.1: Photo Station 6.0.3 | _Hwiwon Lee_
 [CVE-2016-3207](windows/browser/ie/20163207/README.md) | IE | Browser | Windows | 11.0.9600.17420(32bit) | _Hyeonhak Kim_
 [CVE-2017-0037](windows/browser/ie/20170037/README.md) | IE | Browser | Windows | 11.0.9600.18537(32bit) | _Hyeonhak Kim_
 [CVE-2019-9760](windows/FTP/FTPGetter5.97/README.md) | FTPGetter | FTP Client | Windows | 5.97.0.177(64bit) | _Hyeonhak Kim_
