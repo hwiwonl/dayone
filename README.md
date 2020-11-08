@@ -37,6 +37,7 @@ CVE Number | Target | Type | OS | Version | Author
 [crbug 992914](windows/browser/chromium/992914/README.md) | Chrome | Browser | Windows | < 76.0.3809.132  | _Youngjoon Kim_
 [CVE-2020-6418](linux/browser/chromium/20206418/README.md) | Chrome | Browser | Linux | < 80.0.3987.122  | _Youngjoon Kim_
 [CVE-2020-7247](linux/OpenSMPTD/20207247/README.md) | OpenSMPTD | ETC | Linux | < 6.6.2  | _Youngjoon Kim_
+[CVE-2019-13720](windows/browser/chromium/CVE-2019-13720/README.md) | Chrome | Browser | Windows | < 78.0.3904.87  | _Youngjoon Kim_
 [CVE-2017-5375&CVE-2016-1960](windows/browser/firefox/Firefox%2044.0.2%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-1960)/README.md) | Firefox | Browser | Windows | 44.0.2 | _Sungha Park_
 [CVE-2017-5375&CVE-2016-2819](windows/browser/firefox/Firefox%2046.0.1%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-2819)/README.md) | Firefox | Browser | Windows | 46.0.1 | _Sungha Park_
 [CVE-2017-5375&CVE-2016-9079](windows/browser/firefox/Firefox%2050.0.1%20-%20ASM.JS%20JIT-Spray%20Remote%20Code%20Execution(CVE-2017-5375%3BCVE-2016-9079)/README.md) | Firefox | Browser | Windows | 50.0.1 | _Sungha Park_
