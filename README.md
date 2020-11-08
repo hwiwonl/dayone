@@ -58,7 +58,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2019-1215](windows/kernel/CVE-2019-1215/README.md) | win10 1903 x64 | Kernel | Windows | ws2ifsl 10.0.18362.1 | _Younggi Park_
 [CVE-2019-9810](windows/browser/firefox/cve-2016-9810/README.md) | Firefox | Browser | Windows | < 66.0.1 | _Younggi Park_
 [CVE-2020-0674](windows/browser/ie/CVE-2019-0674/README.md) | IE | Browser | Windows | ~ | _Younggi Park_
-[CVE-2020-0674](windows/browser/firefox/CVE-2018-18492/README.md) | Firefox | Browser | Windows | < 65.0a1 | _Younggi Park_
+[CVE-2020-18492](windows/browser/firefox/CVE-2018-18492/README.md) | Firefox | Browser | Windows | < 65.0a1 | _Younggi Park_
 
 ## Metasploit
 [Official Repo](https://github.com/rapid7/metasploit-framework)  
