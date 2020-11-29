@@ -63,6 +63,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2019-9810](windows/browser/firefox/cve-2016-9810/README.md) | Firefox | Browser | Windows | < 66.0.1 | _Younggi Park_
 [CVE-2020-0674](windows/browser/ie/CVE-2019-0674/README.md) | IE | Browser | Windows | ~ | _Younggi Park_
 [CVE-2020-18492](windows/browser/firefox/CVE-2018-18492/README.md) | Firefox | Browser | Windows | < 65.0a1 | _Younggi Park_
+[CVE-2019-11707](windows/browser/firefox/CVE-2018-11707/README.md) | Firefox | Browser | Windows | < 67.0.2 | _Younggi Park_
 [CVE-2018-20062](linux/ThinkPHP/README.md) | ThinkPHP | Web | Linux  | ThinkPHP < 5.0.23 or 5.1.31 | _Seungki Yoon_
 [CVE-2020-1472](windows/server/CVE-2020-1472/README.md) | Active Directory | ETC | Windows Server | 2008 R2 < X < 2019 | _Seungki Yoon_
 
