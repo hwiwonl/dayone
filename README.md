@@ -30,6 +30,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2019-5782](windows/browser/chromium/CVE-2019-5782/README.md) | Chrome | Browser | Windows | 70.0.3538 | _Hyeonhak Kim_
 [CVE-2019-11043](linux/php/CVE-2019-11043/README.md) | PHP | Web | Linux | < 7.3.11, < 7.2.24 | _Hyeonhak Kim_
 [CVE-2019-8506](macos/browser/safari/CVE-2019-8506/README.md) | Safari | Browser | macos | < 12.1 | _Hyeonhak Kim_
+[CVE-2020-9802](macos/browser/safari/CVE-2020-9802/README.md) | Safari | Browser | iOS | 13.4.1 | _Hyeonhak Kim_
 [CVE-2019-????](linux/browser/chromium/46654/README.md) | Chrome | Browser | Linux | 74.0.3702.0 (64bit) | _Youngjoon Kim_
 [CVE-2019-????](linux/browser/chromium/46748/README.md) | Chrome | Browser | Linux | 74.0.3725.0 (64bit) | _Youngjoon Kim_
 [CVE-2019-0752](windows/browser/ie/20190752/README.md) | IE | Browser | Windows | 11.379.17763.0 (64bit) | _Youngjoon Kim_
