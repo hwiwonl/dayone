@@ -93,7 +93,7 @@
       <div class="card flex-md-row mb-4 box-shadow h-md-250 w-100">         
         <div class="card-body">
           <h4>Writeup Editor</h4>
-          <div id="markdown_editor">{{writeup}}</div>
+          <div id="markdown_editor"></div>
           <input type="submit" class="btn btn-primary" id="btnSaveWriteup" value="Save writeup"/>
         </div>
       </div>
@@ -102,6 +102,7 @@
       var editor = new tui.Editor({
         el: document.querySelector("#markdown_editor"),
         initialEditType: 'markdown',
+        initialValue: `{{writeup}}`,
         previewStyle: 'vertical',
         height: '800px',
         exts: [
@@ -134,9 +135,19 @@
             csrf_token : csrf_token,
             body : body
           }),
-          error: function(e) {
-            console.log(e);
+          complete: function() {
+            alert("Success to save writup.");
           },
+          // error: function(a, b, e) {
+          //   console.log(e);
+          //   alert("Fail to save writup.");
+          //   console.log(JSON.stringify({
+          //   id : {%if(vulnerability_details.suggested_id)%}"{{vulnerability_details.suggested_id}}"{%else%}"{{vulnerability_details.id}}"{%endif%},
+          //   csrf_token : csrf_token,
+          //   body : body
+          //   }));
+          // },
+          
           dataType: "json",
           contentType: "application/json"
         });
