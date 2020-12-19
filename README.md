@@ -17,6 +17,7 @@ CVE Number | Target | Type | OS | Version | Author
 [CVE-2020-0796](windows/kernel/CVE-2020-0796/README.md) | win10 1903/1909 | Kernel | Windows | 18363.592 (64bit) | _Hwiwon Lee_
 [CVE-2019-7192](embedded/QNAP/CVE-2019-7192/README.md) | QNAP | Embedded | ARM/MIPS | < QTS 4.4.1: Photo Station 6.0.3 | _Hwiwon Lee_
 [CVE-2020-13958](windows/office/OpenOffice/CVE-2020-13958/README.md) | OpenOffice | Office | Windows | < 4.1.8 | _Hwiwon Lee_
+[ZDI-20-709](embedded/NETGEAR/ZDI-20-709/README.md) | NETGEAR | Embedded | ARM | < V1.0.4.84_10.0.58 (R6700) | _Hwiwon Lee_
 [CVE-2016-3207](windows/browser/ie/20163207/README.md) | IE | Browser | Windows | 11.0.9600.17420(32bit) | _Hyeonhak Kim_
 [CVE-2017-0037](windows/browser/ie/20170037/README.md) | IE | Browser | Windows | 11.0.9600.18537(32bit) | _Hyeonhak Kim_
 [CVE-2019-9760](windows/FTP/FTPGetter5.97/README.md) | FTPGetter | FTP Client | Windows | 5.97.0.177(64bit) | _Hyeonhak Kim_
