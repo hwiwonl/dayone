@@ -19,7 +19,7 @@ buffer = malloc(attacker_control_size);
 memcpy(buffer, file_content, file_content_size);
 ```
 
-할당된 버퍼 크기를 조절하기 위해서 **Content-Length** 헤더를 사용할 수 있다. 하지만, 본 공유기에서 HTTP 리퀘스트를 Nginx Proxy를 거치도록 설계되어 있어, 단순히 해당 헤더에 원하는 값을 적는다고 원하는 크기로 할당할 수 없다. 하지만, CGI 바이너리에서 **Content-Length** 헤더 값을 처리하는데 *atoi* 함수를 이용하는데 해당 함수의 로직에 문제가 있다. 요약하면, *atoi* 함수 내에 *strstr* 함수를 통해 **Content-Length** 헤더의 마지막 값을 가져와야하는데 실수로 헤더가 아닌 전체 리퀘스트 패킷 전체를 입력 값으로 받게되어 공격자가 원하는 임의의 값으로 설정할 수 있게 된다. 예를들어, `POST /cgi-bin/genie.cgi?backup.cgiContent-Length: 111 HTTP/1.1` 로 리퀘스트를 보낸 경우 `strstr` 함수에서는 **111 HTTP/1.1** 값을 입력으로 받게 되는 것이다. 이후, 업로드한 파일을 저장하기 위한 공간을 할당하기 위해 *malloc* 함수의 인자로 이전에 계산한 값에 0x258을 더한 값을 설정한다. 만약, 공격자가 조작한 값이 **0xffffffe9**와 같은 음수 값이라면 0x258이 더해지면 **0x241** 값으로 설정(Integer Overflow)된다. 이를 통해, 위 C코드에서 **attacker_control_size** 값을 설정할 수 있게 된다. 
+할당된 버퍼 크기를 조절하기 위해서 **Content-Length** 헤더를 사용할 수 있다. 하지만, 본 공유기에서 HTTP 리퀘스트를 Nginx Proxy를 거치도록 설계되어 있어, 단순히 해당 헤더에 원하는 값을 적는다고 원하는 크기로 할당할 수 없다. 하지만, CGI 바이너리에서 **Content-Length** 헤더 값을 처리하는데 *atoi* 함수를 이용하는데 해당 함수의 로직에 문제가 있다. 요약하면, *atoi* 함수 내에 *strstr* 함수를 통해 **Content-Length** 헤더의 마지막 값을 가져와야하는데 실수로 헤더가 아닌 전체 리퀘스트 패킷 전체를 입력 값으로 받게되어 공격자가 원하는 임의의 값으로 설정할 수 있게 된다. 예를들어, `POST /cgi-bin/genie.cgi?backup.cgiContent-Length: 111 HTTP/1.1` 로 리퀘스트를 보낸 경우 *strstr* 함수에서는 `111 HTTP/1.1` 값을 입력으로 받게 되는 것이다. 이후, 업로드한 파일을 저장하기 위한 공간을 할당하기 위해 *malloc* 함수의 인자로 이전에 계산한 값에 0x258을 더한 값을 설정한다. 만약, 공격자가 조작한 값이 **0xffffffe9**와 같은 음수 값이라면 0x258이 더해지면 **0x241** 값으로 설정(Integer Overflow)된다. 이를 통해, 위 C코드에서 **attacker_control_size** 값을 설정할 수 있게 된다. 
 
 다음으로, 할당된 Heap 버퍼에 공격자가 업로드한 파일 내용을 복사하는 부분은 다음과 같다.  
 ![heap overflow](img/heapoverflow.png)
