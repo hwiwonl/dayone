@@ -1,5 +1,5 @@
-# 1-day exploits
-1day exploit repo
+# DayOne: Critical Vulnerability Root Cause Analysis Platform
+:loudspeaker: *This project is a root cause analysis platform for in the wild vulnerabilities, independently conducted by Korea University from April 2019 to December 2020.*
 
 ## Database
 CVE Number | Target | Type | OS | Version | Author 
